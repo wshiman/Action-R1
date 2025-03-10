@@ -143,14 +143,9 @@ def load_video_dataset(json_path):
         problem = None  # 初始化问题变量
         for conversation in entry['conversations']:
             if conversation['from'] == 'human':
-                problem = conversation['value'].replace('<video>\n<audio>\n', '')
-              #  problem = "As an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you?"
-                if 'DFEW' in video_path:
-                    problem = "As an emotional recognition expert; throughout the video, which emotion is the most obvious to you?\nhappy, surprise, neutral, angry, disgust, sad, fear"
-                elif 'MAFW' in video_path:
-                    problem = "As an emotional recognition expert; throughout the video, which emotion is the most obvious to you?\nhappy, surprise, neutral, angry, disgust, sad, fear, contemptuous, disappointed, helpless, anxious"
-                else:
-                    dddd
+              #  problem = conversation['value'].replace('<video>\n<audio>\n', '')
+                problem = "As an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you?"
+
             elif conversation['from'] == 'gpt' and problem is not None:
                 solution = f"<answer> {conversation['value']} </answer>"
                 # 添加到transformed_data
@@ -170,7 +165,7 @@ def main(script_args, training_args, model_args):
     reward_funcs = [reward_funcs_registry[func] for func in script_args.reward_funcs]
 
     # Load the dataset
-    json_file_path = "/mnt/data/qize.yqz/datasets/human/annos/1021_train_MAFW_DFEW_it_with_tag_with_bodyface.json"
+    json_file_path = "Path_to_MAFW_DFEW.json"
     dataset = load_video_dataset(json_file_path)
    # dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
     
