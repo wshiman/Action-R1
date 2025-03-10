@@ -49,25 +49,21 @@ Below are the performance on emotion recognition datasets. We use symbols to ind
 
 
 ## 📺  Demo
-https://github.com/user-attachments/assets/ecf07e98-f448-4cb6-a124-6e2a2885e581
+https://github.com/user-attachments/assets/8c73cbe6-5f24-49a9-bef9-bff6c50e4580
 ```
-User:What's the major emotion?
-HumanOmni:angry.
+User: As an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you?  Output the thinking process in <think> </think> and final emotion in <answer> </answer> tags.
 
-User:What's the major facial expression?
-HumanOmni:frown.
+HumanOmni-0.5B: fear
+EMER-SFT: <think>In the video, a man in a brown jacket stands in front of a vibrant mural, his face showing clear signs of anger. His furrowed brows and open mouth express his dissatisfaction. From his expressions and vocal traits, it can be inferred that he is experiencing intense emotional turmoil. The audio content mentions "fear" and "lowering one's voice," suggesting that he is facing an urgent situation or expressing strong emotions during an emotionally tense moment. Overall, the analysis indicates that the man is experiencing a deep sense of fear and anxiety.</think>
+<answer>fear</answer>
+MAFW-DFEW-SFT: angry
+R1-Omni: <think>In the video, a man in a brown jacket stands in front of a vibrant mural. He is wearing a pink shirt underneath his brown jacket, and his hair is dark and curly. His facial expression is complex, with wide eyes, slightly open mouth, raised eyebrows, and furrowed brows, revealing surprise and anger. Speech recognition technology suggests that his voice contains words like "you", "lower your voice", "freaking out", indicating strong emotions and agitation. Overall, he displays an emotional state of confusion, anger, and excitement.</think>
+<answer>angry</answer>
+GT:angry
 
-User:Desribe the woman.
-HumanOmni:The woman has long brown hair and is wearing a pink top with a dark cardigan.
-
-User:Please describe the major action in detail.
-HumanOmni:The woman is frowning and shaking her head, indicating that she is angry. She is also gesturing with her hands as if she is explaining something or emphasizing a point.
-
-User:What did the woman say?
-HumanOmni:The woman said "Of course we object! I object, Steve!"
 ```
 
-https://github.com/user-attachments/assets/0f0d9c5c-6e1d-473f-8c6b-819ebdc8aae8
+https://github.com/user-attachments/assets/1ee5f969-a13d-4706-a835-9790faf61407
 ```
 User:What's the major emotion?
 HumanOmni:happy.
@@ -82,40 +78,10 @@ User:What did the woman say?
 HumanOmni:The woman said "Dogs are sitting by the door."
 ```
 
-[https://humanmllm.github.io/HumanOmni/chinese_video.mp4](https://github.com/user-attachments/assets/65b49d37-7213-452d-a492-cfddbbc8b41d)
-```
-User:描述一下视频中男子的外貌穿着.
-HumanOmni:视频中的男性有短的黑发，配戴圆框眼镜。他穿了一件棕色的毛大衣，内里是白色的.
-
-User:视频中男子说了什么内容？
-HumanOmni:男子说他穿什么颜色的衣服，现在处于什么环境，今天的天气怎么样.
-
-User:视频中男子有什么情绪吗？
-HumanOmni:没有情绪。
-```
-
 ## 🛠️ Environment Setup
+Our code is built on the R1-V framework. To set up the environment, please follow the installation instructions in the [R1-V repository](https://github.com/Deep-Agent/R1-V/)
 
-To set up the recommended environment for HumanOmni, follow these instructions:
 
-### Recommended Environment
-- **Python**: >=3.10
-- **CUDA**: >=12.1
-- **PyTorch**: >=2.2 (with CUDA support)
-- **Transformers**: >=4.45
-- **Accelerate**: >=0.30.1
-
-Or you can quickly set up the environment as follows:
-
-```
-git clone https://github.com/HumanMLLM/HumanOmni
-cd HumanOmni
-conda create -n humanOmni python=3.10 -y
-conda activate humanOmni
-pip install --upgrade pip
-pip install -r requirements.txt
-pip install flash-attn --no-build-isolation
-```
 ## 🧠 Training on Custom Dataset
 ### Data Preparation
 An example json file of the training data:
