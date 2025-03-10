@@ -60,10 +60,6 @@ from transformers import (
 )
 import os
 import sys
-os.environ['USE_MODELSCOPE'] = '0'
-os.environ['VLLM_USE_MODELSCOPE'] = '0'
-os.environ['HF_ENDPOINT'] = 'https://huggingface.co'
-os.environ['HF_HOME']= '/mnt/data/jiaxing.zjx/cache/huggingface/'
 from src.open_r1.trainer.grpo_trainer import Qwen2VLGRPOTrainer
 sys.path.append('/mnt/data/jiaxing.zjx/code/HumanOmni/')
 sys.path.append('/mnt/data/jiaxing.zjx/cache/huggingface/')
@@ -259,13 +255,11 @@ class HumanOmniVLGRPOTrainer(Trainer):
             vision_tower = model.get_vision_tower()
             if not vision_tower.is_loaded:
                 vision_tower.load_model()
-            # vision_tower.to(device=device, dtype=torch.float16)
-            # model.get_model().initialize_vision_modules(config)
-            # model.get_model().initialize_vision_modules(config)
+
             audio_tower = model.get_audio_tower()
             if not audio_tower.is_loaded:
                 audio_tower.load_model()
-            # audio_tower.to(device=device, dtype=torch.float16)
+
             audio_tower = model.get_audio_tower()
             self.audio_processor = WhisperFeatureExtractor.from_pretrained(config.mm_audio_tower)
 
@@ -295,14 +289,12 @@ class HumanOmniVLGRPOTrainer(Trainer):
         vision_tower = self.ref_model.get_vision_tower()
         if not vision_tower.is_loaded:
             vision_tower.load_model()
-        # vision_tower.to(device=device, dtype=torch.float16)
-        # model.get_model().initialize_vision_modules(config)
-        # model.get_model().initialize_vision_modules(config)
+
         audio_tower = self.ref_model.get_audio_tower()
         if not audio_tower.is_loaded:
             audio_tower.load_model()
 
-        bert_model = "/mnt/workspace/jiaxing.zjx/code/R1-V-Qwen/R1-V/bert-base-uncased"
+        bert_model = "/mnt/data/jiaxing.zjx/code/R1-V-Qwen/R1-V/bert-base-uncased"
         self.bert_tokenizer = BertTokenizer.from_pretrained(bert_model)
 
 
@@ -442,12 +434,8 @@ class HumanOmniVLGRPOTrainer(Trainer):
         return inputs
     
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
-       # import ipdb;ipdb.set_trace()
         if return_outputs:
             raise ValueError("The GRPOTrainer does not support returning outputs")
-
-
-
 
         prompts = []
         bert_prompts = []
@@ -460,14 +448,12 @@ class HumanOmniVLGRPOTrainer(Trainer):
             prompt[0]['content'][1]['text'] = '<vi_start><video><vi_end>\n<au_start><audio><au_end>\n' + prompt[0]['content'][1]['text']
             prompts.append(prompt)
 
-      #  print(f"bert_prompts: {bert_prompts}")
         bert_prompts = self.bert_tokenizer(bert_prompts, return_tensors='pt', padding=True, truncation=True,add_special_tokens=True)
 
         prompts_text = []
         for example in inputs:
             prompt_text = maybe_apply_chat_template(example, self.processing_class)["prompt"]
             prompts_text.append(prompt_text)
-     #   print(f"prompts_text: {prompts_text}")
 
         input_ids = [tokenizer_multimodal_token(prompts_text_, self.processing_class.tokenizer, '<video>', return_tensors='pt') for prompts_text_ in prompts_text]
         input_ids = torch.cat(input_ids, dim=0).unsqueeze(0)
@@ -509,8 +495,7 @@ class HumanOmniVLGRPOTrainer(Trainer):
             completion_ids = prompt_completion_ids
             prompt_mask = prompt_mask.repeat_interleave(self.num_generations, dim=0)
             prompt_ids_repeat = prompt_ids.repeat_interleave(self.num_generations, dim=0)
-      #  import ipdb;ipdb.set_trace()
-        # Mask everything after the first EOS token
+
         is_eos = completion_ids == self.processing_class.eos_token_id
         device = self.accelerator.device
         eos_idx = torch.full((is_eos.size(0),), is_eos.size(1), dtype=torch.long, device=device)
@@ -518,7 +503,7 @@ class HumanOmniVLGRPOTrainer(Trainer):
         sequence_indices = torch.arange(is_eos.size(1), device=device).expand(is_eos.size(0), -1)
         completion_mask = (sequence_indices <= eos_idx.unsqueeze(1)).int()
 
-        # Concatenate prompt_mask with completion_mask for logit computation
+
         attention_mask = torch.cat([prompt_mask, completion_mask], dim=1)  # (B*G, P+C)
         
         prompt_completion_ids_repeat = torch.cat([prompt_ids_repeat, prompt_completion_ids], dim=1)
@@ -532,9 +517,9 @@ class HumanOmniVLGRPOTrainer(Trainer):
       
 
         per_token_logps = self._get_per_token_logps_video(model, prompt_completion_ids_repeat, attention_mask, images_repeat, audios_repeat, prompts_repeat, answer_length)
-        # Get rid of the prompt (-1 because of the shift done in get_per_token_logps)
+
         per_token_logps = per_token_logps
-       # import ipdb;ipdb.set_trace()
+  
 
         with torch.inference_mode():
             if self.ref_model is not None:
@@ -546,8 +531,7 @@ class HumanOmniVLGRPOTrainer(Trainer):
                     if use_video:
                         ref_per_token_logps = self._get_per_token_logps_video(model, prompt_completion_ids, attention_mask, pixel_values_videos, video_grid_thw)
         ref_per_token_logps = ref_per_token_logps
-       # import ipdb;ipdb.set_trace()
-        # Compute the KL divergence between the model and the reference model
+
         per_token_kl = torch.exp(ref_per_token_logps - per_token_logps) - (ref_per_token_logps - per_token_logps) - 1
 
         # Decode the generated completions
@@ -582,7 +566,7 @@ class HumanOmniVLGRPOTrainer(Trainer):
                     for example in inputs:
                         # Repeat each value in the column for `num_generations` times
                         reward_kwargs[key].extend([example[key]] * self.num_generations)
-              #  print(f"reward_kwargs:{inputs[0].keys()},{reward_kwargs}")
+
                 output_reward_func = reward_func(prompts=prompts, completions=completions, **reward_kwargs)
                 rewards_per_func[:, i] = torch.tensor(output_reward_func, dtype=torch.float32, device=device)
 

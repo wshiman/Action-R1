@@ -170,7 +170,6 @@ def main(script_args, training_args, model_args):
     reward_funcs = [reward_funcs_registry[func] for func in script_args.reward_funcs]
 
     # Load the dataset
-   # import ipdb;ipdb.set_trace()
     json_file_path = "/mnt/data/qize.yqz/datasets/human/annos/1021_train_MAFW_DFEW_it_with_tag_with_bodyface.json"
     dataset = load_video_dataset(json_file_path)
    # dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
@@ -200,7 +199,6 @@ def main(script_args, training_args, model_args):
 
     # QUESTION_TEMPLATE = "{Question}  Output the thinking process in <think> </think> and final answer (number) in <answer> </answer> tags."
 
-   # QUESTION_TEMPLATE = "{Question} Output the thinking process in <think> </think> and final emotion in <answer> </answer> tags."
     QUESTION_TEMPLATE = "{Question}\nOutput the thinking process in <think> </think> and final emotion in <answer> </answer> tags."
     def make_conversation_image(example):
         return {
@@ -234,25 +232,6 @@ def main(script_args, training_args, model_args):
         # dataset = dataset.remove_columns(["original_question", "original_answer"])
     elif "video" in dataset[script_args.dataset_train_split].features:
         print("has video in dataset")
-        # features = Features({
-        #     'video': Value('string'),
-        #     'problem': Value('string'),
-        #     'solution': Value('string'),
-        #     'prompt': Sequence({
-        #         'role': Value('string'),
-        #         'content': Sequence({
-        #             'type': Value('string'),
-        #             'video': Value('string', id=None),  # Optional field
-        #             'text': Value('string', id=None)   # Optional field
-        #         })
-        #     })
-        # })
-        # dataset = dataset.map(
-        #     make_conversation_video, 
-        #     with_indices=True,  # 确保传递索引给函数
-        #     features=features,  # 指定自定义Features
-        #     batched=False  # 确保单个处理，以便正确地处理错误
-        # )
         dataset = dataset.map(make_conversation_video)
     else:
         print("no image in dataset")

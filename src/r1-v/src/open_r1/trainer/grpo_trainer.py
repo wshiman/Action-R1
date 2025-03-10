@@ -173,7 +173,6 @@ class Qwen2VLGRPOTrainer(Trainer):
         attn_implementation: str = "flash_attention_2",
     ):
         # Args
-       # import ipdb;ipdb.set_trace()
         if args is None:
             model_name = model if isinstance(model, str) else model.config._name_or_path
             model_name = model_name.split("/")[-1]
@@ -361,7 +360,6 @@ class Qwen2VLGRPOTrainer(Trainer):
     
     def _get_per_token_logps_video(self, model, input_ids, attention_mask, pixel_values_videos, video_grid_thw):
         logits = model(input_ids, attention_mask=attention_mask, pixel_values_videos=pixel_values_videos, video_grid_thw=video_grid_thw).logits  # (B, L, V)
-     #   import ipdb;ipdb.set_trace()
         logits = logits[:, :-1, :]  # (B, L-1, V), exclude the last logit: it corresponds to the next token pred
         input_ids = input_ids[:, 1:]  # (B, L-1), exclude the first input ID since we don't have logits for it
         # Compute the log probabilities for the input tokens. Use a loop to reduce memory peak.
@@ -379,7 +377,6 @@ class Qwen2VLGRPOTrainer(Trainer):
         return inputs
 
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
-       # import ipdb;ipdb.set_trace()
         if return_outputs:
             raise ValueError("The GRPOTrainer does not support returning outputs")
         if "image" in inputs[0].keys():
@@ -407,8 +404,7 @@ class Qwen2VLGRPOTrainer(Trainer):
                 prompt[0]["content"][0]["max_pixels"] = 240 * 240
                 prompt[0]["content"][0]["fps"] = fps
                 prompts.append(prompt)
-                print(fps, video_duration)
-     #   import ipdb; ipdb.set_trace()
+
         prompts_text = [maybe_apply_chat_template(example, self.processing_class)["prompt"] for example in inputs]
         if use_image:
             images = [x["image"] for x in inputs] 
@@ -451,12 +447,10 @@ class Qwen2VLGRPOTrainer(Trainer):
         # Generate completions
         with unwrap_model_for_generation(model, self.accelerator) as unwrapped_model:
             prompt_completion_ids = unwrapped_model.generate(**prompt_inputs, generation_config=self.generation_config)
-       #     import ipdb; ipdb.set_trace()
             prompt_length = prompt_ids.size(1)
             prompt_ids = prompt_completion_ids[:, :prompt_length]
             completion_ids = prompt_completion_ids[:, prompt_length:]
             prompt_mask = prompt_mask.repeat_interleave(self.num_generations, dim=0)
-        import ipdb; ipdb.set_trace()
         # Mask everything after the first EOS token
         is_eos = completion_ids == self.processing_class.eos_token_id
         device = self.accelerator.device
@@ -532,7 +526,6 @@ class Qwen2VLGRPOTrainer(Trainer):
                 output_reward_func = reward_func(prompts=prompts, completions=completions, **reward_kwargs)
                 rewards_per_func[:, i] = torch.tensor(output_reward_func, dtype=torch.float32, device=device)
 
-        import ipdb; ipdb.set_trace()
         # Sum the rewards from all reward functions
         rewards = rewards_per_func.sum(dim=1)
 
