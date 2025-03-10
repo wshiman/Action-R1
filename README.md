@@ -1,7 +1,7 @@
 # R1-Omni: Explainable Omni-Multimodal Emotion Recognition with Reinforcement Learning
 
-[![ModelScope](https://img.shields.io/badge/ModelScope-HumanOmni-blue)](https://modelscope.cn/models/myroot/R1-Omni-0.5B)
-[![Hugging Face](https://img.shields.io/badge/HuggingFace-HumanOmni-yellow)](https://huggingface.co/StarJiaxing/R1-Omni-0.5B)
+[![ModelScope](https://img.shields.io/badge/ModelScope-R1Omni-blue)](https://modelscope.cn/models/myroot/R1-Omni-0.5B)
+[![Hugging Face](https://img.shields.io/badge/HuggingFace-R1Omni-yellow)](https://huggingface.co/StarJiaxing/R1-Omni-0.5B)
 [![arXiv](https://img.shields.io/badge/arXiv-2503.05379-red)](https://arxiv.org/abs/2503.05379)
 
 
