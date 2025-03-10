@@ -64,17 +64,13 @@ GT:angry
 
 https://github.com/user-attachments/assets/1ee5f969-a13d-4706-a835-9790faf61407
 ```
-User:What's the major emotion?
-HumanOmni:happy.
-
-User:What's the major facial expression?
-HumanOmni:smile.
-
-User:Desribe the woman in detail.
-HumanOmni:The woman in the video has blonde hair, is wearing a black top, and is smiling.
-
-User:What did the woman say?
-HumanOmni:The woman said "Dogs are sitting by the door."
+HumanOmni-0.5B: happy
+EMER-SFT: <think>In the video, we see a woman in an indoor setting that appears to be a personal space or a study room. She is wearing a red headband and a beige blazer over a white top, with her hair neatly tied back. Her facial expression shows slight confusion and surprise, as if she has encountered something unexpected. As time goes on, her emotions seem to calm down, but the specific reasons for this are not explained. In the audio, there is a long silence between "but" and "it was," indicating hesitation and uncertainty. In the text, the subtitle reads: "But it was interesting." This sentence may express the confusion and surprise of the person. Based on the video clues of the woman's slightly confused and surprised expression, as well as her overall appearance and facial expression showing minor confusion and surprise, we can infer that this sentence may have a hesitant or uncertain tone. Additionally, the audio clue describing a long silence between "but" and "it was" also indicates some hesitation and uncertainty. Therefore, this sentence expresses the woman's interest and curiosity in something, while also showing a certain level of hesitation and uncertainty.</think>
+<answer>surprise</answer>
+MAFW-DFEW-SFT: happy
+R1-Omni: <think>In the video, in the opening scene, we see a woman with her eyes slightly closed and mouth slowly opening as if she is laughing. Her facial expression appears somewhat joyful, which may indicate that she is experiencing some pleasant or amusing situation at that moment. In the audio, there are no pauses between sentences, they flow continuously, and the tone is light and cheerful. Combined with the text content, it can be felt that the character is in a very happy and positive emotional state. In the text, the subtitle reads: "It was interesting." This sentence may express the woman's satisfaction and curiosity towards something or someone. Based on the laughter and joyful emotion displayed by the woman in the video clues, as well as the description of continuous flowing, light and cheerful tone in the audio clues, we can infer that this sentence expresses the woman's interest and curiosity towards something. The joy in this sentence aligns with the overall display of happiness and positivity.</think>
+<answer>happy</answer>
+GT:happy
 ```
 
 ## 🛠️ Environment Setup
@@ -115,7 +111,7 @@ python inference.py --modal video_audio \
 
 ## 🧠 Training
 ### Cold Start
-we initialize the HumanOmni-0.5B by fine-tuning it on a combined dataset consisting of 232 samples from the Explainable Multimodal Emotion Reasoning (EMER) [4] dataset and 348 samples from our manually annotated HumanOmni dataset.
+we initialize the HumanOmni-0.5B by fine-tuning it on a combined dataset consisting of 232 samples from the [Explainable Multimodal Emotion Reasoning](https://github.com/zeroQiaoba/AffectGPT) dataset and 348 samples from HumanOmni dataset.
 An example json file of the training data:
 ```
 [
