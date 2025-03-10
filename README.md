@@ -1,217 +1,149 @@
-# HumanOmni: A Large Vision-Speech Language Model for Human-Centric Video Understanding
+# R1-Omni: Explainable Omni-Multimodal Emotion Recognition with Reinforcement Learning
 
-[![ModelScope](https://img.shields.io/badge/ModelScope-HumanOmni-blue)](https://modelscope.cn/models/iic/HumanOmni-7B)
-[![Hugging Face](https://img.shields.io/badge/HuggingFace-HumanOmni-yellow)](https://huggingface.co/StarJiaxing/HumanOmni-7B)
-[![arXiv](https://img.shields.io/badge/arXiv-2501.15111-red)](https://arxiv.org/abs/2501.15111)
+[![ModelScope](https://img.shields.io/badge/ModelScope-R1Omni-blue)](https://modelscope.cn/models/myroot/R1-Omni-0.5B)
+[![Hugging Face](https://img.shields.io/badge/HuggingFace-R1Omni-yellow)](https://huggingface.co/StarJiaxing/R1-Omni-0.5B)
+[![arXiv](https://img.shields.io/badge/arXiv-2503.05379-red)](https://arxiv.org/abs/2503.05379)
 
-<div align="center">
-  <img src="figures/arch.png" width="800"/>
-</div>
 
 ## 📖 Introduction
-**HumanOmni** is the industry’s first human-centric Omni-multimodal large language model for comprehensive understanding in human-centric scenes.
-1) **2.4M human-centric video clips with over 14M double-check instructions**: We have constructed a dataset containing over 2.4M human-centric video clips, providing rich and detailed information about individuals. We provide over 14M instruction data for visual pretraining.
-2) **50K video clips with more than 100K manually annotated instrcutions**: We have manually annotated 50K video clips with more than 100K instructions related to emotion recognition, facial description, and speaker-specific speech recognition for visual fine-tuning and cross-modal interaction integration.
-3) **Three human-specific branch**: We use three branches to handle face-related, body-related, and interaction-related scenes separately in HumanOmni. HumanOmni dynamically adjusts its fusion weights based on input instructions, ensuring accurate responses across various scenes.
-4) **Audio-visual synergy**: HumanOmni can simultaneously understand vision and speech, allowing for a more comprehensive understanding of complex scenes.
+**R1-Omni** is the industry’s first application of Reinforcement Learning with Verifiable Reward (RLVR) to an Omni-multimodal large language model. We focus on emotion recognition, a task where both visual and audio modalities play crucial roles, to validate the potential of combining RLVR with Omni model. Our findings reveal several key insights:
+1) **Enhanced Reasoning Capability**: R1-Omni demonstrate superior reasoning abilities, enabling a clearer understanding of how visual and audio information contribute to emotion recognition.
+2) **Improved Understanding Capability**: Compared to SFT, RLVR significantly boosts performance on emotion recognition tasks.
+3) **Stronger Generalization Capability**: RLVR models exhibit markedly better generalization capabilities, particularly excelling in out-of-distribution scenarios.
 
 
 
 ## 📦 Model Download
+We chose the open-source Omni model HumanOmni-0.5B as our base model. We have open-sourced the following: the base model HumanOmni-0.5B, the cold-start model EMER-SFT, the model MAFW-DFEW-SFT fine-tuned directly on the MAFW and DFEW training sets, and our final model R1-Omni.
 <div align="center">
 
-| **Model**              | **Stage**                          | **#Params** | **HuggingFace**                                                                 | **ModelScope**                                                          |
-|------------------------|------------------------------------|-------------|---------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| `HumanOmni-Video`      | Visual Capability Construction     | 7B          | [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/HumanOmni-7B-Video) | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/HumanOmni-7B-Video) |
-| `HumanOmni-Audio`      | Auditory Capability Development    | 7B          | [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/HumanOmni-7B-Audio)  | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/HumanOmni-7B-Audio)  |
-| `HumanOmni-Omni`       | Cross-Modal Interaction Integration | 7B          | [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/HumanOmni-7B)         | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/HumanOmni-7B)         |
-
+| **Model**              | **HuggingFace**                                                                 | **ModelScope**                                                          |
+|------------------------|---------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| `HumanOmni-0.5B`      |  [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/HumanOmni-0.5B) | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/HumanOmni-0.5B) |
+| `EMER-SFT`      |  [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/EMER-SFT-0.5B)  | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/EMER-SFT-0.5B)  |
+| `MAFW-DFEW-SFT`       | [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/MAFW-DFEW-0.5B)         | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/MAFW-DFEW-0.5B)         |
+| `R1-Omni`       | [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/R1-Omni-0.5B)         | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/R1-Omni-0.5B)         |
 </div>
 
-Our training pipeline consists of three progressive stages to establish multimodal understanding capabilities:
-
-📹 Visual Capability Construction
-
-- Model: HumanOmni-Video
-- Objective: Learn spatio-temporal feature representations to analyze human actions and scene dynamics in videos.
-  
-🎧 Auditory Capability Development
-
-- Model: HumanOmni-Audio
-- Objective: Develop robust speech comprehension and audio interpretation through large-scale acoustic modeling.
-
-🌐 Cross-Modal Interaction Integration
-
-- Model: HumanOmni-Omni (also referred to as HumanOmni)
-- Objective: Enable synergistic vision-audio reasoning by fine-tuning parameters from both HumanOmni-Video and HumanOmni-Audio.
 
 
 ## 🏆 Performance
 
-- Emotion Understanding:
+Below are the performance on emotion recognition datasets. We use symbols to indicate whether the data is **in-distribution (⬤)** or **out-of-distribution (△)**.
 
-| Method                          | Modalities | DFEW (UAR) | DFEW (WAR) | MAFW (UAR) | MAFW (WAR) |
-|----------------------------------|------------|-------------|-------------|-------------|-------------|
-| **Specialized models for emotion-related tasks** |            |             |             |             |             |
-| Wav2Vec2.0                   | A          | 36.15       | 43.05       | 21.59       | 29.69       |
-| HuBERT                       | A          | 35.98       | 43.24       | 25.00       | 32.60       |
-| DFER-CLIP                     | V          | 59.61       | 71.25       | 38.89       | 52.55       |
-| MAE-DFER                      | V          | 63.41       | 74.43       | 41.62       | 54.31       |
-| HiCMAE                        | AV         | 63.76       | 75.01       | 42.65       | 56.17       |
-| Emotion-LLaMA                 | AV         | 64.21       | 77.06       | -           | -           |
-| MMA-DFER                         | AV         | 66.85       | 77.43       | 44.25       | 58.45       |
-| **Other models**                 |            |             |             |             |             |
-| Qwen2-VL-7B                  | V          | 43.08       | 52.83       | 31.67       | 45.89       |
-| Qwen2-VL-72B                  | V          | 39.24       | 45.12       | 42.61       | 46.07       |
-| VITA                          | AV         | 21.36       | 32.07       | 14.05       | 33.38       |
-| InternLM-XComposer-2.5-OL     | AV         | 44.23       | 51.29       | 33.78       | 46.81       |
-| GPT4-O                       | AV         | 50.57       | 57.19       | 38.29       | 48.82       |
-| **HumanOmni**                    | AV         | **74.86**   | **82.46**   | **52.94**   | **68.40**   |
+| Method                          | DFEW (WAR) ⬤ | DFEW (UAR) ⬤ | MAFW (WAR) ⬤ | MAFW (UAR) ⬤ | RAVDESS (WAR) △ | RAVDESS (UAR) △ |
+|----------------------------------|---------------|---------------|---------------|---------------|------------------|------------------|
+| HumanOmni-0.5B                   | 22.64         | 19.44         | 20.18         | 13.52         | 7.33             | 9.38             |
+| EMER-SFT                         | 38.66       | 35.31         | 38.39         | 28.02         | 29.00            | 27.19            |
+| MAFW-DFEW-SFT                    | 60.23         | 44.39         | 50.44         | 30.39         | 29.33            | 30.75            |
+| R1-Omni                          | 65.83         | 56.27         | 57.68         | 40.04         | 43.00            | 44.69            |
 
-- [Dynamic Facial Expression Caption](https://modelscope.cn/datasets/iic/DFEC):
+![image](https://github.com/user-attachments/assets/f0239753-8a70-4e8b-9088-35c420595978)
 
-| Method                          | Correctness | Detail | Context | Temporal | CIDEr  | Rouge-L | AutoDQ  |
-|----------------------------------|-------------|--------|---------|----------|--------|---------|---------|
-| **Vision large language model** |             |        |         |          |        |         |         |
-| VideoLLaMA                    | 3.60        | 3.67   | 3.84    | 3.50     | 0.189  | 0.196   | 0.303   |
-| VideoChat                     | 3.47        | 3.52   | 3.92    | 3.38     | 0.251  | 0.192   | 0.344   |
-| VideoChat2                    | 3.70        | 3.56   | 4.16    | 3.52     | 0.202  | 0.229   | 0.311   |
-| Chat-UniVI                    | 3.64        | 3.63   | 4.21    | 3.61     | 0.189  | 0.231   | 0.396   |
-| LLaVA-Next-Video              | 4.19        | 4.07   | 4.39    | 4.04     | 0.250  | 0.249   | 0.395   |
-| ShareGPT4Video                | 4.24        | 4.13   | 4.35    | 4.09     | 0.192  | 0.205   | 0.394   |
-| LLaMA-VID                     | 3.95        | 4.01   | 4.22    | 3.71     | 0.195  | 0.231   | 0.339   |
-| VideoLLaMA2                   | 4.17        | 4.02   | 4.47    | 3.93     | 0.253  | 0.266   | 0.344   |
-| PLLaVA                        | 4.21        | 4.15   | 4.37    | 4.08     | 0.268  | 0.250   | 0.393   |
-| ST-LLM                        | 4.00        | 3.98   | 4.31    | 3.94     | 0.213  | 0.238   | 0.321   |
-| Tarsier                       | 3.59        | 3.50   | 4.07    | 3.41     | 0.143  | 0.185   | 0.415   |
-| LLaVA-OneVision              | 3.68        | 3.47   | 4.10    | 3.42     | 0.115  | 0.165   | 0.379   |
-| FaceTrack-MM                 | 4.42        | 4.30   | 4.60    | 4.26     | 0.418  | 0.473   | 0.483   |
-| Qwen2-VL-72B                 | 4.28        | 4.14   | 4.55    | 4.08     | 0.241  | 0.314   | 0.449   |
-| Qwen2-VL-7B                  | 4.23        | 4.16   | 4.52    | 4.02     | 0.204  | 0.233   | 0.422   |
-| Qwen2-VL-2B                  | 4.01        | 3.98   | 4.37    | 3.88     | 0.202  | 0.221   | 0.406   |
-| Claude3.5-Sonnet             | 4.13        | 4.01   | 4.49    | 4.05     | 0.243  | 0.228   | 0.442   |
-| **Omni-modality large language model** |      |        |         |          |        |         |         |
-| GPT4-O                       | 4.22        | 3.97   | 4.48    | 3.90     | 0.264  | 0.213   | 0.432   |
-| VITA                         | 3.98        | 3.74   | 4.11    | 3.59     | 0.191  | 0.224   | 0.366   |
-| InternLM-XComposer-2.5-OL    | 3.91        | 3.70   | 4.12    | 3.54     | 0.113  | 0.164   | 0.382   |
-| **HumanOmni**                    | **4.58**    | **4.41**| **4.70**| **4.41** | 0.412  | 0.468   | **0.523**|
+### Legend
+- **⬤**: Indicates **in-distribution data** (DFEW and MAFW).
+- **△**: Indicates **out-of-distribution data** (RAVDESS).
 
-- Action and Pose Understanding:
 
-| Method                          | Action Sequence  | Unexpected Action  | Action Antonym  | Object Interaction  | Action Count  | Fine-grained Action  | Avg  |
-|----------------------------------|-----|-----|-----|-----|-----|-----|------|
-| **Vision large language model** |     |     |     |     |     |     |      |
-| Otter-V                       | 23.0| 29.5| 27.5| 28.0| 26.0| 27.0| 26.8 |
-| mPLUG-Owl-V                   | 22.0| 29.0| 34.0| 27.0| 31.5| 29.0| 28.8 |
-| Video-LLaMA                   | 27.5| 39.0| 51.0| 40.5| 34.0| 29.0| 36.8 |
-| LLaMA-Adapter                 | 23.0| 33.0| 51.0| 32.5| 29.0| 30.0| 33.1 |
-| Video-ChatGPT                 | 23.5| 26.5| 62.0| 28.0| 30.5| 22.5| 32.2 |
-| VideoChat                     | 33.5| 40.5| 56.0| 40.5| 35.0| 33.5| 39.8 |
-| VideoChat2                    | 75.5| 60.5| 83.5| 74.5| 37.0| 50.5| 63.6 |
-| ST-LLM                        | 66.0| 58.5| 84.0| 73.5| 36.5| 44.0| 60.4 |
-| PLLaVA                        | 58.0| 61.0| 55.5| 61.0| 39.5| 41.0| 52.6 |
-| VideoLLaMB                   | 54.5| 52.0| 86.5| 58.5| 40.5| 44.5| 56.1 |
-| Qwen2-VL-72B*                | 51.5| 82.0| 93.5| 81.5| 48.5| 49.0| 67.7 |
-| Qwen2-VL-7B*                 | 73.5| 80.0| 79.0| 78.5| 46.0| 49.0| 67.7 |
-| Qwen2-VL-2B*                 | 77.5| 76.5| 76.5| 77.5| 50.0| 47.5| 67.6 |
-| GPT-4V                       | 55.5| 63.5| 72.0| 59.0| 39.0| 47.5| 56.1 |
-| **Omni-modality large language model** |     |     |     |     |     |     |      |
-| VITA                         | 58.0| 81.5| 73.5| 61.5| 45.5| 42.0| 60.3 |
-| InternLM-XComposer-2.5-OL    | 84.5| 81.0| 75.0| 79.5| 60.5| 46.0| 71.1 |
-| **HumanOmni**                    | 70.0| 78.0| 92.5| 80.5| 65.5| 49.0| **72.6** |
+
 
 ## 📺  Demo
-https://github.com/user-attachments/assets/ecf07e98-f448-4cb6-a124-6e2a2885e581
+https://github.com/user-attachments/assets/8c73cbe6-5f24-49a9-bef9-bff6c50e4580
 ```
-User:What's the major emotion?
-HumanOmni:angry.
+User: As an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you?  Output the thinking process in <think> </think> and final emotion in <answer> </answer> tags.
 
-User:What's the major facial expression?
-HumanOmni:frown.
+HumanOmni-0.5B: fear
+EMER-SFT: <think>In the video, a man in a brown jacket stands in front of a vibrant mural, his face showing clear signs of anger. His furrowed brows and open mouth express his dissatisfaction. From his expressions and vocal traits, it can be inferred that he is experiencing intense emotional turmoil. The audio content mentions "fear" and "lowering one's voice," suggesting that he is facing an urgent situation or expressing strong emotions during an emotionally tense moment. Overall, the analysis indicates that the man is experiencing a deep sense of fear and anxiety.</think>
+<answer>fear</answer>
+MAFW-DFEW-SFT: angry
+R1-Omni: <think>In the video, a man in a brown jacket stands in front of a vibrant mural. He is wearing a pink shirt underneath his brown jacket, and his hair is dark and curly. His facial expression is complex, with wide eyes, slightly open mouth, raised eyebrows, and furrowed brows, revealing surprise and anger. Speech recognition technology suggests that his voice contains words like "you", "lower your voice", "freaking out", indicating strong emotions and agitation. Overall, he displays an emotional state of confusion, anger, and excitement.</think>
+<answer>angry</answer>
+GT:angry
 
-User:Desribe the woman.
-HumanOmni:The woman has long brown hair and is wearing a pink top with a dark cardigan.
-
-User:Please describe the major action in detail.
-HumanOmni:The woman is frowning and shaking her head, indicating that she is angry. She is also gesturing with her hands as if she is explaining something or emphasizing a point.
-
-User:What did the woman say?
-HumanOmni:The woman said "Of course we object! I object, Steve!"
 ```
 
-https://github.com/user-attachments/assets/0f0d9c5c-6e1d-473f-8c6b-819ebdc8aae8
+https://github.com/user-attachments/assets/1ee5f969-a13d-4706-a835-9790faf61407
 ```
-User:What's the major emotion?
-HumanOmni:happy.
-
-User:What's the major facial expression?
-HumanOmni:smile.
-
-User:Desribe the woman in detail.
-HumanOmni:The woman in the video has blonde hair, is wearing a black top, and is smiling.
-
-User:What did the woman say?
-HumanOmni:The woman said "Dogs are sitting by the door."
-```
-
-[https://humanmllm.github.io/HumanOmni/chinese_video.mp4](https://github.com/user-attachments/assets/65b49d37-7213-452d-a492-cfddbbc8b41d)
-```
-User:描述一下视频中男子的外貌穿着.
-HumanOmni:视频中的男性有短的黑发，配戴圆框眼镜。他穿了一件棕色的毛大衣，内里是白色的.
-
-User:视频中男子说了什么内容？
-HumanOmni:男子说他穿什么颜色的衣服，现在处于什么环境，今天的天气怎么样.
-
-User:视频中男子有什么情绪吗？
-HumanOmni:没有情绪。
+HumanOmni-0.5B: happy
+EMER-SFT: <think>In the video, we see a woman in an indoor setting that appears to be a personal space or a study room. She is wearing a red headband and a beige blazer over a white top, with her hair neatly tied back. Her facial expression shows slight confusion and surprise, as if she has encountered something unexpected. As time goes on, her emotions seem to calm down, but the specific reasons for this are not explained. In the audio, there is a long silence between "but" and "it was," indicating hesitation and uncertainty. In the text, the subtitle reads: "But it was interesting." This sentence may express the confusion and surprise of the person. Based on the video clues of the woman's slightly confused and surprised expression, as well as her overall appearance and facial expression showing minor confusion and surprise, we can infer that this sentence may have a hesitant or uncertain tone. Additionally, the audio clue describing a long silence between "but" and "it was" also indicates some hesitation and uncertainty. Therefore, this sentence expresses the woman's interest and curiosity in something, while also showing a certain level of hesitation and uncertainty.</think>
+<answer>surprise</answer>
+MAFW-DFEW-SFT: happy
+R1-Omni: <think>In the video, in the opening scene, we see a woman with her eyes slightly closed and mouth slowly opening as if she is laughing. Her facial expression appears somewhat joyful, which may indicate that she is experiencing some pleasant or amusing situation at that moment. In the audio, there are no pauses between sentences, they flow continuously, and the tone is light and cheerful. Combined with the text content, it can be felt that the character is in a very happy and positive emotional state. In the text, the subtitle reads: "It was interesting." This sentence may express the woman's satisfaction and curiosity towards something or someone. Based on the laughter and joyful emotion displayed by the woman in the video clues, as well as the description of continuous flowing, light and cheerful tone in the audio clues, we can infer that this sentence expresses the woman's interest and curiosity towards something. The joy in this sentence aligns with the overall display of happiness and positivity.</think>
+<answer>happy</answer>
+GT:happy
 ```
 
 ## 🛠️ Environment Setup
+Our code is built on the R1-V framework. To set up the environment, please follow the installation instructions in the [R1-V repository](https://github.com/Deep-Agent/R1-V/)
 
-To set up the recommended environment for HumanOmni, follow these instructions:
+## 🔍 Inference
+Our inference code is based on the implementation from **HumanOmni**. To ensure the model runs inference smoothly, follow these steps:
 
-### Recommended Environment
-- **Python**: >=3.10
-- **CUDA**: >=12.1
-- **PyTorch**: >=2.2 (with CUDA support)
-- **Transformers**: >=4.45
-- **Accelerate**: >=0.30.1
+1. **Download the Required Models**：
+   - [siglip-224](https://huggingface.co/google/siglip-base-patch16-224).
+   - [whisper-large-v3](https://huggingface.co/openai/whisper-large-v3).
 
-Or you can quickly set up the environment as follows:
+2. **Update the Configuration File**：
+   - In the directory where you downloaded the R1-Omni model, locate the config.json file.
+   - Update the paths on line 23 and line 31 to point to the local folders where you saved the models.
 
+
+#### Example: Updating config.json
+If you saved the models to the following local paths:：
+- `/path/to/local/models/siglip-base-patch16-224`
+- `/path/to/local/models/whisper-large-v3`
+
+Update the relevant lines in config.json as follows：
+```json
+ "mm_audio_tower": "/path/to/local/models/whisper-large-v3",
+ "mm_vision_tower": "/path/to/local/models/siglip-base-patch16-224"
 ```
-git clone https://github.com/HumanMLLM/HumanOmni
-cd HumanOmni
-conda create -n humanOmni python=3.10 -y
-conda activate humanOmni
-pip install --upgrade pip
-pip install -r requirements.txt
-pip install flash-attn --no-build-isolation
+
+We provide inference.py for singe video inference. 
 ```
-## 🧠 Training on Custom Dataset
-### Data Preparation
+python inference.py --modal video_audio \
+  --model_path ./R1-Omni-0.5B \
+  --video_path video.mp4 \
+  --instruct "As an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you?  Output the thinking process in <think> </think> and final emotion in <answer> </answer> tags."
+```
+
+
+
+## 🧠 Training
+### Cold Start
+we initialize the HumanOmni-0.5B by fine-tuning it on a combined dataset consisting of 232 samples from the [Explainable Multimodal Emotion Reasoning](https://github.com/zeroQiaoba/AffectGPT) dataset and 348 samples from HumanOmni dataset.
 An example json file of the training data:
 ```
 [
     {
-        "video": "human/DFEW/videos/1.mp4",
+        "video": "MER24/sample_00000967.mp4",
         "conversations": [
             {
                 "from": "human",
-                "value": "<video>\n<audio>\nAs an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you?\nfear ,angry ,surprise ,happy ,neutral ,sad ,disgust"
+                "value": "<video>\n<audio>\nAs an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you? Output the thinking process in <think> </think> and final emotion in <answer> </answer> tags."
             },
             {
                 "from": "gpt",
-                "value": "sad"
+                "value": "<think>The video depicts a bright and tranquil indoor setting, where a man in a white Polo shirt stands by the window, engaged in a phone call. His furrowed brow and open mouth suggest he is experiencing tension and anxiety. According to the audio content of the video, his speech is fast-paced, and his tone is filled with confusion and stress. A comprehensive analysis reveals that the man is facing a moderate level of anxiety, closely linked to the challenging phone conversation he is having. Consequently, the entire emotional analysis report emphasizes his anxiety and nervousness in handling challenging situations.</think>\n<answer>anxious</answer>"
             }
-        ],
+        ]
     },
+  ...
+]
+```
+All of the cold-start data will be released as soon as possible.
+
+### RLVR
+In this stage, we utilize the training sets from the [MAFW](https://mafw-database.github.io/MAFW/) and DFEW(https://dfew-dataset.github.io/) datasets, comprising a total of 15,306 video sample. 
+An example json file of the training data:
+```
+[
     {
-        "video": "human/DFEW/videos/1.mp4",
+        "video": "DFEW/videos/1.mp4",
         "conversations": [
             {
                 "from": "human",
-                "value": "<video>\n<audio>\nAs an emotional recognition expert, in the video, when the characters display their emotions, which predominant feeling is most clearly expressed?\nfear ,disgust ,happy ,sad ,surprise"
+                "value": "<video>\n<audio>\nAs an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you?"
             },
             {
                 "from": "gpt",
@@ -223,47 +155,22 @@ An example json file of the training data:
 ]
 ```
 
-### Multi-Modal SFT
-- Download the required weights: (1) [HumanOmni-7B-Video](https://modelscope.cn/models/iic/HumanOmni-7B-Video) (2) [HumanOmni-7B-Audio](https://modelscope.cn/models/iic/HumanOmni-7B-Audio)
-- scripts/train/finetune_humanomni.sh Loading the weights and the prepared dataset.
-- bash scripts/train/finetune_humanomni.sh
+### wandb
+![image](https://github.com/user-attachments/assets/3395bafa-aaba-4212-902d-91067a1cd19a)
 
-## 🔍 Inference
-We provide inference.py for singe video inference. 
- - video + audio 
-```
-python inference.py --modal video_audio \
-  --model_path ./HumanOmni_7B \
-  --video_path video.mp4 \
-  --instruct "Describe this video."
-```
- - only video 
-```
-python inference.py --modal video \
-  --model_path ./HumanOmni_7B \
-  --video_path video.mp4 \
-  --instruct "Describe this video."
-```
-- only audio
-```
-python inference.py --modal audio \
-  --model_path ./HumanOmni_7B \
-  --video_path video.mp4 \
-  --instruct "Describe this video."
-```
 
 ## 🤝 Related Work
-- [LLaVA-Octopus: Unlocking Instruction-Driven Adaptive Projector Fusion for Video Understanding](https://arxiv.org/abs/2501.05067)
-- [Omni-Emotion: Extending Video MLLM with Detailed Face and Audio Modeling for Multimodal Emotion Analysis](https://arxiv.org/abs/2501.09502)
-- [Qwen2.5](https://github.com/QwenLM/Qwen2.5)
+- [R1-V](https://github.com/Deep-Agent/R1-V)
+- [HumanOmni](https://github.com/HumanMLLM/HumanOmni)
+- [DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1)
 
 ## 📚 Citation
 If you find our work helpful, feel free to give us a cite.
 ```
-@article{zhao2025humanomni,
-  title={HumanOmni: A Large Vision-Speech Language Model for Human-Centric Video Understanding},
-  author={Zhao, Jiaxing and Yang, Qize and Peng, Yixing and Bai, Detao and Yao, Shimin and Sun, Boyuan and Chen, Xiang and Fu, Shenghao and Wei, Xihan and Bo, Liefeng and others},
-  journal={arXiv preprint arXiv:2501.15111},
-  year={2025}
+{zhao2025r1omniexplainableomnimultimodalemotion,
+      title={R1-Omni: Explainable Omni-Multimodal Emotion Recognition with Reinforcement Learning}, 
+      author={Jiaxing Zhao and Xihan Wei and Liefeng Bo},
+      journal={arXiv preprint arXiv:2503.05379},
+      year={2025}
 }
 ```
