@@ -4,9 +4,6 @@
 [![Hugging Face](https://img.shields.io/badge/HuggingFace-HumanOmni-yellow)](https://huggingface.co/StarJiaxing/R1-Omni-0.5B)
 [![arXiv](https://img.shields.io/badge/arXiv-2503.05379-red)](https://arxiv.org/abs/2503.05379)
 
-<div align="center">
-  <img src="figures/arch.png" width="800"/>
-</div>
 
 ## 📖 Introduction
 **R1-Omni** is the industry’s first application of Reinforcement Learning with Verifiable Reward (RLVR) to an Omni-multimodal large language model. We focus on emotion recognition, a task where both visual and audio modalities play crucial roles, to validate the potential of combining RLVR with Omni model. Our findings reveal several key insights:
@@ -22,10 +19,10 @@ We chose the open-source Omni model HumanOmni-0.5B as our base model. We have op
 
 | **Model**              | **HuggingFace**                                                                 | **ModelScope**                                                          |
 |------------------------|---------------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| `HumanOmni-0.5B`      |  [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/HumanOmni-7B-Video) | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/HumanOmni-7B-Video) |
-| `EMER-SFT`      |  [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/HumanOmni-7B-Audio)  | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/HumanOmni-7B-Audio)  |
-| `MAFW-DFEW-SFT`       | [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/HumanOmni-7B)         | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/HumanOmni-7B)         |
-| `R1-Omni`       | [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/HumanOmni-7B)         | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/HumanOmni-7B)         |
+| `HumanOmni-0.5B`      |  [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/HumanOmni-0.5B) | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/HumanOmni-0.5B) |
+| `EMER-SFT`      |  [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/EMER-SFT-0.5B)  | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/EMER-SFT-0.5B)  |
+| `MAFW-DFEW-SFT`       | [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/MAFW-DFEW-0.5B)         | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/MAFW-DFEW-0.5B)         |
+| `R1-Omni`       | [![HF](https://img.shields.io/badge/🤗-Download-yellow)](https://hf.co/StarJiaxing/R1-Omni-0.5B)         | [![MS](https://img.shields.io/badge/ModelScope-Download-blue)](https://modelscope.cn/models/iic/R1-Omni-0.5B)         |
 </div>
 
 
@@ -37,9 +34,11 @@ Below are the performance on emotion recognition datasets. We use symbols to ind
 | Method                          | DFEW (WAR) ⬤ | DFEW (UAR) ⬤ | MAFW (WAR) ⬤ | MAFW (UAR) ⬤ | RAVDESS (WAR) △ | RAVDESS (UAR) △ |
 |----------------------------------|---------------|---------------|---------------|---------------|------------------|------------------|
 | HumanOmni-0.5B                   | 22.64         | 19.44         | 20.18         | 13.52         | 7.33             | 9.38             |
-| EMER-SFT                         | 35.98         | 43.24         | 25.00         | 32.60         | 29.00            | 27.19            |
-| MAFW-DFEW-SFT                    | 59.61         | 71.25         | 38.89         | 52.55         | 29.33            | 30.75            |
-| R1-Omni                          | 63.41         | 74.43         | 41.62         | 54.31         | 43.00            | 44.69            |
+| EMER-SFT                         | 38.66       | 35.31         | 38.39         | 28.02         | 29.00            | 27.19            |
+| MAFW-DFEW-SFT                    | 60.23         | 44.39         | 50.44         | 30.39         | 29.33            | 30.75            |
+| R1-Omni                          | 65.83         | 56.27         | 57.68         | 40.04         | 43.00            | 44.69            |
+
+![image](https://github.com/user-attachments/assets/f0239753-8a70-4e8b-9088-35c420595978)
 
 ### Legend
 - **⬤**: Indicates **in-distribution data** (DFEW and MAFW).
@@ -81,31 +80,74 @@ HumanOmni:The woman said "Dogs are sitting by the door."
 ## 🛠️ Environment Setup
 Our code is built on the R1-V framework. To set up the environment, please follow the installation instructions in the [R1-V repository](https://github.com/Deep-Agent/R1-V/)
 
+## 🔍 Inference
+Our inference code is based on the implementation from **HumanOmni**. To ensure the model runs inference smoothly, follow these steps:
 
-## 🧠 Training on Custom Dataset
-### Data Preparation
+1. **Download the Required Models**：
+   - [siglip-224](https://huggingface.co/google/siglip-base-patch16-224).
+   - [whisper-large-v3](https://huggingface.co/openai/whisper-large-v3).
+
+2. **Update the Configuration File**：
+   - In the directory where you downloaded the R1-Omni model, locate the config.json file.
+   - Update the paths on line 23 and line 31 to point to the local folders where you saved the models.
+
+
+#### Example: Updating config.json
+If you saved the models to the following local paths:：
+- `/path/to/local/models/siglip-base-patch16-224`
+- `/path/to/local/models/whisper-large-v3`
+
+Update the relevant lines in config.json as follows：
+```json
+ "mm_audio_tower": "/path/to/local/models/whisper-large-v3",
+ "mm_vision_tower": "/path/to/local/models/siglip-base-patch16-224"
+```
+
+We provide inference.py for singe video inference. 
+```
+python inference.py --modal video_audio \
+  --model_path ./R1-Omni-0.5B \
+  --video_path video.mp4 \
+  --instruct "As an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you?  Output the thinking process in <think> </think> and final emotion in <answer> </answer> tags."
+```
+
+
+
+## 🧠 Training
+### Cold Start
+we initialize the HumanOmni-0.5B by fine-tuning it on a combined dataset consisting of 232 samples from the Explainable Multimodal Emotion Reasoning (EMER) [4] dataset and 348 samples from our manually annotated HumanOmni dataset.
 An example json file of the training data:
 ```
 [
     {
-        "video": "human/DFEW/videos/1.mp4",
+        "video": "MER24/sample_00000967.mp4",
         "conversations": [
             {
                 "from": "human",
-                "value": "<video>\n<audio>\nAs an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you?\nfear ,angry ,surprise ,happy ,neutral ,sad ,disgust"
+                "value": "<video>\n<audio>\nAs an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you? Output the thinking process in <think> </think> and final emotion in <answer> </answer> tags."
             },
             {
                 "from": "gpt",
-                "value": "sad"
+                "value": "<think>The video depicts a bright and tranquil indoor setting, where a man in a white Polo shirt stands by the window, engaged in a phone call. His furrowed brow and open mouth suggest he is experiencing tension and anxiety. According to the audio content of the video, his speech is fast-paced, and his tone is filled with confusion and stress. A comprehensive analysis reveals that the man is facing a moderate level of anxiety, closely linked to the challenging phone conversation he is having. Consequently, the entire emotional analysis report emphasizes his anxiety and nervousness in handling challenging situations.</think>\n<answer>anxious</answer>"
             }
-        ],
+        ]
     },
+  ...
+]
+```
+All of the cold-start data will be released as soon as possible.
+
+### RLVR
+In this stage, we utilize the training sets from the [MAFW](https://mafw-database.github.io/MAFW/) and DFEW(https://dfew-dataset.github.io/) datasets, comprising a total of 15,306 video sample. 
+An example json file of the training data:
+```
+[
     {
-        "video": "human/DFEW/videos/1.mp4",
+        "video": "DFEW/videos/1.mp4",
         "conversations": [
             {
                 "from": "human",
-                "value": "<video>\n<audio>\nAs an emotional recognition expert, in the video, when the characters display their emotions, which predominant feeling is most clearly expressed?\nfear ,disgust ,happy ,sad ,surprise"
+                "value": "<video>\n<audio>\nAs an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you?"
             },
             {
                 "from": "gpt",
@@ -117,47 +159,22 @@ An example json file of the training data:
 ]
 ```
 
-### Multi-Modal SFT
-- Download the required weights: (1) [HumanOmni-7B-Video](https://modelscope.cn/models/iic/HumanOmni-7B-Video) (2) [HumanOmni-7B-Audio](https://modelscope.cn/models/iic/HumanOmni-7B-Audio)
-- scripts/train/finetune_humanomni.sh Loading the weights and the prepared dataset.
-- bash scripts/train/finetune_humanomni.sh
+### wandb
+![image](https://github.com/user-attachments/assets/3395bafa-aaba-4212-902d-91067a1cd19a)
 
-## 🔍 Inference
-We provide inference.py for singe video inference. 
- - video + audio 
-```
-python inference.py --modal video_audio \
-  --model_path ./HumanOmni_7B \
-  --video_path video.mp4 \
-  --instruct "Describe this video."
-```
- - only video 
-```
-python inference.py --modal video \
-  --model_path ./HumanOmni_7B \
-  --video_path video.mp4 \
-  --instruct "Describe this video."
-```
-- only audio
-```
-python inference.py --modal audio \
-  --model_path ./HumanOmni_7B \
-  --video_path video.mp4 \
-  --instruct "Describe this video."
-```
 
 ## 🤝 Related Work
-- [LLaVA-Octopus: Unlocking Instruction-Driven Adaptive Projector Fusion for Video Understanding](https://arxiv.org/abs/2501.05067)
-- [Omni-Emotion: Extending Video MLLM with Detailed Face and Audio Modeling for Multimodal Emotion Analysis](https://arxiv.org/abs/2501.09502)
-- [Qwen2.5](https://github.com/QwenLM/Qwen2.5)
+- [R1-V](https://github.com/Deep-Agent/R1-V)
+- [HumanOmni](https://github.com/HumanMLLM/HumanOmni)
+- [DeepSeek-R1](https://github.com/deepseek-ai/DeepSeek-R1)
 
 ## 📚 Citation
 If you find our work helpful, feel free to give us a cite.
 ```
-@article{zhao2025humanomni,
-  title={HumanOmni: A Large Vision-Speech Language Model for Human-Centric Video Understanding},
-  author={Zhao, Jiaxing and Yang, Qize and Peng, Yixing and Bai, Detao and Yao, Shimin and Sun, Boyuan and Chen, Xiang and Fu, Shenghao and Wei, Xihan and Bo, Liefeng and others},
-  journal={arXiv preprint arXiv:2501.15111},
-  year={2025}
+{zhao2025r1omniexplainableomnimultimodalemotion,
+      title={R1-Omni: Explainable Omni-Multimodal Emotion Recognition with Reinforcement Learning}, 
+      author={Jiaxing Zhao and Xihan Wei and Liefeng Bo},
+      journal={arXiv preprint arXiv:2503.05379},
+      year={2025}
 }
 ```
