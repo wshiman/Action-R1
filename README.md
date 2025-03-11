@@ -5,6 +5,17 @@
 [![arXiv](https://img.shields.io/badge/arXiv-2503.05379-red)](https://arxiv.org/abs/2503.05379)
 
 
+## ✨ Updates
+
+## 📋 ToDo
+- [ ] Integrate the source code of HumanOmni into this project.
+- [ ] Open-source a more detailed reproduction process.
+- [ ] Open-source all the training data used.
+- [ ] Inference for single-video and single-audio modality data
+- [ ] Results of the 7B version of the model.
+      
+We will complete these updates as soon as possible.
+
 ## 📖 Introduction
 **R1-Omni** is the industry’s first application of Reinforcement Learning with Verifiable Reward (RLVR) to an Omni-multimodal large language model. We focus on emotion recognition, a task where both visual and audio modalities play crucial roles, to validate the potential of combining RLVR with Omni model. Our findings reveal several key insights:
 1) **Enhanced Reasoning Capability**: R1-Omni demonstrate superior reasoning abilities, enabling a clearer understanding of how visual and audio information contribute to emotion recognition.
