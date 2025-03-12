@@ -1,11 +1,12 @@
 cd src/r1-v
-VIDEOLLAMA_DIR=/mnt/data/jiaxing.zjx/code/HumanOmni/
-CURRENT_DIR=$(pwd)
-export PYTHONPATH=$PYTHONPATH:$VIDEOLLAMA_DIR:/mnt/data/jiaxing.zjx/code/R1-V-Qwen/R1-V:/mnt/data/jiaxing.zjx/code/R1-V-Qwen/R1-V/src/r1-v/src/:/mnt/data/jiaxing.zjx/code/R1-V-Qwen/R1-V/src/r1-v/
 
 export DEBUG_MODE="true" # Enable Debug if you want to see the rollout of model during RL
 export LOG_PATH="./logs/humanomni_emotion_emer_1format_withpath_withchoice.txt"
 export HF_HOME=/mnt/data/jiaxing.zjx/cache/huggingface/
+mkdir -p ./logs
+
+# 打印日志路径以确认
+echo "Log path set to: $LOG_PATH"
 
 WANDB_MODE=offline torchrun --nproc_per_node="8" \
     --nnodes="1" \
