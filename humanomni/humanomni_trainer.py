@@ -397,9 +397,9 @@ class HumanOmniTrainer(Trainer):
                     torch.save(non_lora_state_dict, os.path.join(output_dir, 'non_lora_trainables.bin'))
 
                 # save for acquring lora adapter parameters & trainer states: `adapter_config.json`, `adapter_model.safetensors`
-                super(HumanOmniTrainer, self)._save_checkpoint(model, trial, metrics)
+                super(HumanOmniTrainer, self)._save_checkpoint(model, trial)
             else:
-                super(HumanOmniTrainer, self)._save_checkpoint(model, trial, metrics)
+                super(HumanOmniTrainer, self)._save_checkpoint(model, trial)
 
     def _save(self, output_dir: Optional[str] = None, state_dict=None):
         if getattr(self.args, 'tune_mm_mlp_adapter', False):
