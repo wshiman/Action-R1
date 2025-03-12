@@ -87,6 +87,8 @@ GT:happy
 
 ## 🛠️ Environment Setup
 Our code is built on the R1-V framework. To set up the environment, please follow the installation instructions in the [R1-V repository](https://github.com/Deep-Agent/R1-V/)
+Nvidia-driver，535.54，torch 2.5.1+cu124，torchvision 0.20.1+cu124 torchaudio 2.5.1+cu124transformers 4.49.0， flash_attn 2.7.4 
+
 
 ## 🔍 Inference
 Our inference code is based on the implementation from **HumanOmni**. To ensure the model runs inference smoothly, follow these steps:
