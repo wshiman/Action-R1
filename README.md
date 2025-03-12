@@ -9,7 +9,7 @@
 
 ## 📋 ToDo
 - [ ] A clearer and more detailed environment setup.
-- [ ] Integrate the source code of HumanOmni into this project.
+- [x] Integrate the source code of HumanOmni into this project.
 - [ ] Open-source a more detailed reproduction process.
 - [ ] Open-source all the training data used.
 - [ ] Inference for single-video and single-audio modality data
