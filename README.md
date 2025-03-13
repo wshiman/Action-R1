@@ -96,21 +96,28 @@ Our inference code is based on the implementation from **HumanOmni**. To ensure 
 1. **Download the Required Models**：
    - [siglip-224](https://huggingface.co/google/siglip-base-patch16-224).
    - [whisper-large-v3](https://huggingface.co/openai/whisper-large-v3).
+   - [bert-base-uncased](https://huggingface.co/google-bert/bert-base-uncased)
 
 2. **Update the Configuration File**：
    - In the directory where you downloaded the R1-Omni model, locate the config.json file.
    - Update the paths on line 23 and line 31 to point to the local folders where you saved the models.
+   - Update the path on line 21 in inferece.py to point to the local folder where you saved the bert-base-uncased.
 
 
-#### Example: Updating config.json
+#### Example: Updating config.json and inference.py
 If you saved the models to the following local paths:：
 - `/path/to/local/models/siglip-base-patch16-224`
 - `/path/to/local/models/whisper-large-v3`
+- `/path/to/local/models/bert_base_uncased`
 
 Update the relevant lines in config.json as follows：
 ```json
  "mm_audio_tower": "/path/to/local/models/whisper-large-v3",
  "mm_vision_tower": "/path/to/local/models/siglip-base-patch16-224"
+```
+Update the relevant line in inference.py as follows：
+```
+  bert_model = "/path/to/local/models/bert_base_uncased"
 ```
 
 We provide inference.py for singe video inference. 
