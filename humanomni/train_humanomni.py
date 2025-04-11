@@ -39,6 +39,8 @@ from torch.utils.data import Dataset
 
 from PIL import Image
 from decord import VideoReader, cpu
+# from .myvideo import VideoReader_cv2,cpu
+
 from moviepy.editor import VideoFileClip
 from transformers import StoppingCriteria
 import transformers
@@ -81,7 +83,7 @@ def sample_frames(largest_body_tracklets, num_frames):
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 local_rank = None
-bert_model = "bert-base-uncased"
+bert_model = "/data/data2/shiman/R1-Omni/bert-base-uncased"
 bert_tokenizer = BertTokenizer.from_pretrained(bert_model)
 
 
@@ -117,7 +119,6 @@ class ModelArguments:
     # LLM Arguments
     model_type: Optional[str] = field(default="HumanOmni_qwen2", metadata={"help": "Model type selected in the list: " + ", ".join(VLLMs.keys())})
     model_path: Optional[str] = field(default="lmsys/vicuna-7b-v1.5")
-
     mm_tunable_parts: Optional[str] = field(
         default=None, metadata={"help": 'Could be "mm_mlp_adapter", "mm_vision_resampler", "mm_vision_tower,mm_mlp_adapter,mm_language_model", "mm_vision_tower,mm_mlp_adapter,mm_language_model", "mm_mlp_adapter,mm_language_model"'}
     )
@@ -229,16 +230,16 @@ def preprocess_plain(
     input_ids = []
     targets = []
     for source in sources:
-        assert len(source) == 2
+        assert len(source) == 2     #确保成对
         assert modal_token in source[0]['value']
         message = [
-            {'role': 'user', 'content': modal_token},
+            {'role': 'user', 'content': modal_token},       #只获取modal_token作为用户的输入;
             {'role': 'assistant', 'content': source[1]['value']}
         ]
-        conversation = " ".join([sentence['value'] for sentence in source])
+        conversation = " ".join([sentence['value'] for sentence in source])     #构成对话
         input_id = tokenizer_multimodal_token(conversation, tokenizer, modal_token, return_tensors='pt')
         target = copy.deepcopy(input_id)
-        target[input_id == MODAL_INDEX_MAP[modal_token]] = IGNORE_INDEX
+        target[input_id == MODAL_INDEX_MAP[modal_token]] = IGNORE_INDEX     #设置ignore index用于在计算交叉熵等损失函数时忽略<image><video>这种modal token部分
         input_ids.append(input_id)
         targets.append(target)
     return dict(input_ids=input_ids, labels=targets)
@@ -260,35 +261,35 @@ def preprocess(
             # Skip the first one if it is not from human
             source = source[1:]
 
-        message = [{'role': roles[sentence['from']], 'content': sentence['value']} for sentence in source]
+        message = [{'role': roles[sentence['from']], 'content': sentence['value']} for sentence in source]  #以user，assistant的方式交互构造message
         conversation = tokenizer.apply_chat_template(message, tokenize=False, add_generation_prompt=False)
         input_ids.append(tokenizer_multimodal_token(conversation, tokenizer, modal_token, return_tensors='pt'))
         targets.append(copy.deepcopy(input_ids[-1]))
 
         assert len(source) % 2 == 0, f"Invalid conversation length {len(source)}."
 
-        cur = 0
-        message = []
+        cur = 0     #记录对话长度
+        message = []            #用于存放历史信息
         for idx, sentence in enumerate(source):
-            if idx % 2 == 1:
+            if idx % 2 == 1:        #enumerate从0开始计数，idx为奇数时构成一轮对话
                 tmp_message = [
-                    {'role': roles[source[idx-1]['from']], 'content': source[idx-1]['value']}, 
-                    {'role': roles[sentence['from']], 'content': sentence['value']}
+                    {'role': roles[source[idx-1]['from']], 'content': source[idx-1]['value']},      #user
+                    {'role': roles[sentence['from']], 'content': sentence['value']}         #assistant
                 ]
 
-                instruction = tokenizer.apply_chat_template(message + tmp_message[:1], tokenize=False, add_generation_prompt=True)
-                conversation = tokenizer.apply_chat_template(message + tmp_message, tokenize=False, add_generation_prompt=False)
+                instruction = tokenizer.apply_chat_template(message + tmp_message[:1], tokenize=False, add_generation_prompt=True)  #user instruction;用户输入的部分，用于训练; message + tmp_message[:1]=历史信息+用户输入；tmp_message[:1]等价于tmp_message[0]
+                conversation = tokenizer.apply_chat_template(message + tmp_message, tokenize=False, add_generation_prompt=False)    #历史输入+该轮完整的对话内容
 
-                instruction_len = len(tokenizer_multimodal_token(instruction, tokenizer, modal_token, return_tensors='pt'))
+                instruction_len = len(tokenizer_multimodal_token(instruction, tokenizer, modal_token, return_tensors='pt'))         #长度
                 conversation_len = len(tokenizer_multimodal_token(conversation, tokenizer, modal_token, return_tensors='pt'))
 
-                targets[-1][cur:instruction_len] = IGNORE_INDEX
+                targets[-1][cur:instruction_len] = IGNORE_INDEX     #targets[-1]保证取的是当前正在处理的对话；如果为targets[0]则始终为第一个样本；targets是在不断扩展的
 
-                cur = conversation_len
-                message += tmp_message
+                cur = conversation_len      #更新长度
+                message += tmp_message      #历史信息入[]
     
     guided_prompt = []
-    refine_prompt=False
+    refine_prompt=False         #是否refine_prompt，即是否只保留prompt的crucial部分（带有问号的句子）
     for i, source in enumerate(sources):
         if roles[source[0]["from"]] != "user":
             # Skip the first one if it is not from human
@@ -297,11 +298,11 @@ def preprocess(
 
         for j, sentence in enumerate(source):
             role = roles[sentence["from"]]
-            assert role == roles_[j % 2], f"{i}"
+            assert role == roles_[j % 2], f"{i}"            #roles_ 存储了user,assistant的顺序
             
             # add guided prompt
             if role=="user":
-                guided_sent = sentence["value"].replace(DEFAULT_IMAGE_TOKEN, '').replace('\n', '').replace(DEFAULT_VIDEO_TOKEN, '')
+                guided_sent = sentence["value"].replace(DEFAULT_IMAGE_TOKEN, '').replace('\n', '').replace(DEFAULT_VIDEO_TOKEN, '')     #去掉无效位
                 
                 if refine_prompt:
                     # only keep the useful part of the prompt
@@ -310,7 +311,7 @@ def preprocess(
                             if '?' in _sent:
                                 guided_sent = _sent
                                 break
-                guided_prompt.append(guided_sent) 
+                guided_prompt.append(guided_sent)           #关键prompt，只保留问号
 
     return dict(input_ids=input_ids, labels=targets, prompts=guided_prompt)
 
@@ -322,7 +323,7 @@ def preprocess_multimodal(
     is_multimodal = data_args.is_multimodal
     if not is_multimodal:
         return sources
-    for source in sources:
+    for source in sources:      #每个source代表一个完整的对话
         for sentence in source:
             for DEFAULT_TOKEN in MODAL_INDEX_MAP.keys():
                 # TODO: hacky here
@@ -332,9 +333,10 @@ def preprocess_multimodal(
                     # put the tag ahead of the sentence
                     sentence['value'] = sentence['value'].replace(f"{DEFAULT_TOKEN}", '').replace(DEFAULT_TOKEN, '').strip()
                     sentence['value'] = replace_token + '\n' + sentence['value']
-                    sentence['value'] = sentence['value'].strip()
+                    sentence['value'] = sentence['value'].strip()       #避免出现额外的空格或换行，保证简洁
                 if data_args.mm_use_x_start_end:
                     new_replace_token = DEFAULT_X_START_TOKEN[X.upper()] + replace_token + DEFAULT_X_END_TOKEN[X.upper()]
+                    #用 X = DEFAULT_TOKEN[1:-1]；；<IMAGE_START>  <IMAGE_END>包围<image>
                     sentence["value"] = sentence["value"].replace(replace_token, new_replace_token)
     return sources
 

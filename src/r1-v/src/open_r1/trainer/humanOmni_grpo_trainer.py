@@ -61,11 +61,12 @@ from transformers import (
 import os
 import sys
 from src.open_r1.trainer.grpo_trainer import Qwen2VLGRPOTrainer
-sys.path.append('/mnt/data/jiaxing.zjx/code/HumanOmni/')
-sys.path.append('/mnt/data/jiaxing.zjx/cache/huggingface/')
+# sys.path.append('/mnt/data/jiaxing.zjx/code/HumanOmni/')
+# sys.path.append('/mnt/data/jiaxing.zjx/cache/huggingface/')
 #初始化BERT分词器
 # bert_model = "bert-base-uncased"
 # bert_tokenizer = BertTokenizer.from_pretrained(bert_model)
+sys.path.append('/data/data2/shiman/R1-Omni/')
 
 def check_parameters(model):
     frozen_params = []
@@ -199,6 +200,7 @@ class HumanOmniVLGRPOTrainer(Trainer):
         model: Union[str, PreTrainedModel],
         reward_funcs: Union[RewardFunc, list[RewardFunc]],
         args: GRPOConfig = None,
+        script_args = None,
         train_dataset: Optional[Union[Dataset, IterableDataset]] = None,
         eval_dataset: Optional[Union[Dataset, IterableDataset, dict[str, Union[Dataset, IterableDataset]]]] = None,
         processing_class: Optional[PreTrainedTokenizerBase] = None,
@@ -243,8 +245,8 @@ class HumanOmniVLGRPOTrainer(Trainer):
                 model, 
                 trust_remote_code=True
             )
-            config.mm_vision_tower = '/mnt/data/jiaxing.zjx/code/R1-V-Qwen/R1-V/google/siglip-base-patch16-224'
-            config.mm_audio_tower = '/mnt/data/jiaxing.zjx/code/R1-V-Qwen/R1-V/whisper-large-v3'
+            config.mm_vision_tower = '/data/data2/shiman/R1-Omni/siglip-224'
+            # config.mm_audio_tower = '/data/data2/shiman/R1-Omni/whisper-large-v3'
             model = VLLMs["HumanOmni_qwen2"].from_pretrained(
                 model,
                 config=config,
@@ -256,12 +258,12 @@ class HumanOmniVLGRPOTrainer(Trainer):
             if not vision_tower.is_loaded:
                 vision_tower.load_model()
 
-            audio_tower = model.get_audio_tower()
-            if not audio_tower.is_loaded:
-                audio_tower.load_model()
+        #    audio_tower = model.get_audio_tower()
+        #     if not audio_tower.is_loaded:
+        #         audio_tower.load_model() 
 
-            audio_tower = model.get_audio_tower()
-            self.audio_processor = WhisperFeatureExtractor.from_pretrained(config.mm_audio_tower)
+        #     audio_tower = model.get_audio_tower()
+        #     self.audio_processor = WhisperFeatureExtractor.from_pretrained(config.mm_audio_tower)
 
             vision_tower = model.get_vision_tower()
             self.visual_processor = SiglipImageProcessor.from_pretrained(config.mm_vision_tower)
@@ -290,17 +292,18 @@ class HumanOmniVLGRPOTrainer(Trainer):
         if not vision_tower.is_loaded:
             vision_tower.load_model()
 
-        audio_tower = self.ref_model.get_audio_tower()
-        if not audio_tower.is_loaded:
-            audio_tower.load_model()
+        # audio_tower = self.ref_model.get_audio_tower()
+        # if not audio_tower.is_loaded:
+        #     audio_tower.load_model()
 
-        bert_model = "/mnt/data/jiaxing.zjx/code/R1-V-Qwen/R1-V/bert-base-uncased"
+        bert_model = "/data/data2/shiman/R1-Omni/bert-base-uncased"
         self.bert_tokenizer = BertTokenizer.from_pretrained(bert_model)
-
+        
+        self.temporal = True
 
         # Processing class
         if processing_class is None:
-            processing_class = processing_class = AutoProcessor.from_pretrained("/mnt/data/jiaxing.zjx/code/R1-V-Qwen/R1-V/Qwen2-VL-2B-Instruct")
+            processing_class = processing_class = AutoProcessor.from_pretrained("/data/data2/shiman/R1-Omni/Qwen2-VL-2B-Instruct")      #只用下载qwen2 的配置文件，无需模型权重
             pad_token_id = processing_class.tokenizer.pad_token_id
             processing_class.pad_token_id = pad_token_id
             processing_class.eos_token_id = processing_class.tokenizer.eos_token_id
@@ -344,6 +347,10 @@ class HumanOmniVLGRPOTrainer(Trainer):
         self.max_prompt_length = args.max_prompt_length
         self.max_completion_length = args.max_completion_length  # = |o_i| in the GRPO paper
         self.num_generations = args.num_generations  # = G in the GRPO paper
+        
+        self.temporal = script_args.temporal
+        self.len_control = script_args.len_control
+        
         self.generation_config = GenerationConfig(
             max_new_tokens=self.max_completion_length,
             do_sample=True,  
@@ -353,6 +360,22 @@ class HumanOmniVLGRPOTrainer(Trainer):
         )
         self.beta = args.beta
 
+        
+        self.shuffled_num_generations = self.num_generations 
+        self.shuffled_generation_config = GenerationConfig(
+            max_new_tokens=self.max_completion_length,
+            do_sample=True,
+            temperature=1, # HACK
+            num_return_sequences=self.shuffled_num_generations,
+            pad_token_id=pad_token_id,
+        )
+        self.dummy_generation_config = GenerationConfig(
+            max_new_tokens=1,
+            do_sample=True,
+            temperature=1, # HACK
+            num_return_sequences=1,
+            pad_token_id=pad_token_id,
+        )       
         # The trainer estimates the number of FLOPs (floating-point operations) using the number of elements in the
         # input tensor associated with the key "input_ids". However, in GRPO, the sampled data does not include the
         # "input_ids" key. Instead, the available keys is "prompt". As a result, the trainer issues the warning:
@@ -412,8 +435,8 @@ class HumanOmniVLGRPOTrainer(Trainer):
             per_token_logps.append(token_log_prob)
         return torch.stack(per_token_logps)
     
-    def _get_per_token_logps_video(self, model, input_ids, attention_mask, images, audios,prompts, answer_length ):
-        logits = model(input_ids, attention_mask=attention_mask, images=images, audios=audios, prompts=prompts).logits  # (B, L, V)
+    def _get_per_token_logps_video(self, model, input_ids, attention_mask, images, prompts, answer_length ):
+        logits = model(input_ids, attention_mask=attention_mask, images=images, prompts=prompts).logits  # (B, L, V)
        # import ipdb;ipdb.set_trace()
         logits = logits[:, :-1, :]  # (B, L-1, V), exclude the last logit: it corresponds to the next token pred
         input_ids = input_ids[:, 1:]  # (B, L-1), exclude the first input ID since we don't have logits for it
@@ -436,47 +459,57 @@ class HumanOmniVLGRPOTrainer(Trainer):
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
         if return_outputs:
             raise ValueError("The GRPOTrainer does not support returning outputs")
-
+        #适用于视频任务，人为定义为true
+        use_image = False
+        use_video = True
+        
         prompts = []
         bert_prompts = []
+        # prompt_temp=[]
         for x in inputs:
             prompt = x["prompt"]
-            bert_prompts.append(prompt[0]['content'][1]['text'])
-            text = prompt[0]["content"][0].pop('text')
+            bert_prompts.append(prompt[0]['content'][1]['text'])    #question
+            text = prompt[0]["content"][0].pop('text')      #remove first text
             video_path = x["video"]
-            prompt[0]["content"][0]["video"] = x["video"]
-            prompt[0]['content'][1]['text'] = '<vi_start><video><vi_end>\n<au_start><audio><au_end>\n' + prompt[0]['content'][1]['text']
-            prompts.append(prompt)
+            prompt[0]["content"][0]["video"] = x["video"]       #add video path
+            # prompt[0]['content'][1]['text'] = '<vi_start><video><vi_end>\n<au_start><audio><au_end>\n' + prompt[0]['content'][1]['text']
+            prompt[0]['content'][1]['text'] = '<vi_start><video><vi_end>\n' + prompt[0]['content'][1]['text']
 
+            prompts.append(prompt)         
+        
         bert_prompts = self.bert_tokenizer(bert_prompts, return_tensors='pt', padding=True, truncation=True,add_special_tokens=True)
 
         prompts_text = []
         for example in inputs:
             prompt_text = maybe_apply_chat_template(example, self.processing_class)["prompt"]
             prompts_text.append(prompt_text)
+        #line 411(video R1); image_input is not cared about  
+        temp_prompt = copy.deepcopy(prompts[0])
+        image_inputs, video_inputs, video_kwargs = process_vision_info(temp_prompt, return_video_kwargs = True) 
 
+                 
         input_ids = [tokenizer_multimodal_token(prompts_text_, self.processing_class.tokenizer, '<video>', return_tensors='pt') for prompts_text_ in prompts_text]
         input_ids = torch.cat(input_ids, dim=0).unsqueeze(0)
         video = []
-        audios = []
+        # audios = []
         for prompt in prompts:
             video_file = prompt[0]["content"][0]["video"]
             video_ids = process_video(video_file, self.visual_processor, aspect_ratio="pad", num_frames=8)
             video.append(video_ids)
 
-            audio, audio_sample_rate = process_audio(video_file)
-            audio = self.audio_processor(audio, sampling_rate=audio_sample_rate, return_tensors='pt')['input_features']
-            audios.append(audio)
+            # audio, audio_sample_rate = process_audio(video_file)
+            # audio = self.audio_processor(audio, sampling_rate=audio_sample_rate, return_tensors='pt')['input_features']
+            # audios.append(audio)
         video = torch.cat(video, dim=0).unsqueeze(0)
-        audios = torch.cat(audios, dim=0).unsqueeze(0)
+        # audios = torch.cat(audios, dim=0).unsqueeze(0)
 
-        attention_masks = input_ids.ne(self.processing_class.pad_token_id)
+        attention_masks = input_ids.ne(self.processing_class.pad_token_id)  #xx.ne <-> not equal
         prompt_inputs = {}
         prompt_inputs['inputs'] = input_ids
         prompt_inputs['images'] = video 
         prompt_inputs['attention_mask'] = attention_masks
         prompt_inputs['prompts'] = bert_prompts
-        prompt_inputs['audios'] = audios
+        # prompt_inputs['audios'] = audios
 
         prompt_inputs = super()._prepare_inputs(prompt_inputs)
 
@@ -487,6 +520,47 @@ class HumanOmniVLGRPOTrainer(Trainer):
             prompt_ids = prompt_ids[:, -self.max_prompt_length :]
             prompt_mask = prompt_mask[:, -self.max_prompt_length :]
 
+        #dont know why use single sample's video input
+        if self.temporal and video_inputs:
+            shuffled_video = []
+            for prompt in prompts:
+                video_file = prompt[0]["content"][0]["video"]
+                video_ids = process_video(video_file, self.visual_processor, aspect_ratio="pad", num_frames=8)
+                shuffled_video_ids = video_ids[torch.randperm(video_ids.size(0))]
+                shuffled_video.append(shuffled_video_ids)
+            shuffled_video = torch.cat(shuffled_video, dim=0).unsqueeze(0)  
+            
+            shuffled_prompt_inputs = {}
+            shuffled_prompt_inputs['inputs'] = input_ids
+            shuffled_prompt_inputs['images'] = shuffled_video
+            shuffled_prompt_inputs['attention_mask'] = attention_masks
+            shuffled_prompt_inputs['prompts'] = bert_prompts
+
+            shuffled_inputs = super()._prepare_inputs(shuffled_prompt_inputs)
+            shuffled_prompt_ids, shuffled_prompt_mask = shuffled_inputs["inputs"], shuffled_inputs["attention_mask"]
+            if self.max_prompt_length is not None:
+                shuffled_prompt_ids = shuffled_prompt_ids[:, -self.max_prompt_length :]
+                shuffled_prompt_mask = shuffled_prompt_mask[:, -self.max_prompt_length :]
+            
+            # indices = torch.randperm(video_inputs[0].size(0))
+            # shuffled_video_inputs = video_inputs[0][indices]
+            # shuffled_prompt_inputs = self.processing_class(
+            #     text=copy.deepcopy(prompts_text),
+            #     images=image_inputs,
+            #     videos=shuffled_video_inputs,
+            #     return_tensors="pt",
+            #     padding=True,
+            #     padding_side="left",
+            #     add_special_tokens=False,
+            # )
+            
+            shuffled_prompt_inputs = super()._prepare_inputs(shuffled_prompt_inputs)
+            shuffled_prompt_ids, shuffled_prompt_mask = shuffled_prompt_inputs["inputs"], shuffled_prompt_inputs["attention_mask"]
+            if self.max_prompt_length is not None:
+                shuffled_prompt_ids = shuffled_prompt_ids[:, -self.max_prompt_length :]
+                shuffled_prompt_mask = shuffled_prompt_mask[:, -self.max_prompt_length :]
+
+                        
         # Generate completions
         with unwrap_model_for_generation(model, self.accelerator) as unwrapped_model:
             prompt_completion_ids = unwrapped_model.generate(**prompt_inputs, generation_config=self.generation_config)
@@ -494,8 +568,24 @@ class HumanOmniVLGRPOTrainer(Trainer):
             answer_length = prompt_completion_ids.size(1)
             completion_ids = prompt_completion_ids
             prompt_mask = prompt_mask.repeat_interleave(self.num_generations, dim=0)
+            
             prompt_ids_repeat = prompt_ids.repeat_interleave(self.num_generations, dim=0)
+            
+            if self.temporal:      
+                shuffled_prompt_completion_ids = unwrapped_model.generate(**shuffled_prompt_inputs, generation_config=self.shuffled_generation_config)
+                shuffled_prompt_length = shuffled_prompt_ids.size(1)
+                shuffled_answer_length = shuffled_prompt_completion_ids.size(1)
+                shuffled_completion_ids = shuffled_prompt_completion_ids
+                shuffled_prompt_mask =shuffled_prompt_mask.repeat_interleave(self.shuffled_num_generations, dim=0) 
+                
+                shuffled_ids_repeat = shuffled_prompt_ids.repeat_interleave(self.shuffled_num_generations, dim=0)
 
+                # shuffled_prompt_ids = shuffled_prompt_completion_ids[:, :shuffled_prompt_length]
+                # shuffled_completion_ids = shuffled_prompt_completion_ids[:, shuffled_prompt_length:]
+                                       
+
+
+        # Mask everything after the first EOS token
         is_eos = completion_ids == self.processing_class.eos_token_id
         device = self.accelerator.device
         eos_idx = torch.full((is_eos.size(0),), is_eos.size(1), dtype=torch.long, device=device)
@@ -509,21 +599,21 @@ class HumanOmniVLGRPOTrainer(Trainer):
         prompt_completion_ids_repeat = torch.cat([prompt_ids_repeat, prompt_completion_ids], dim=1)
 
         images_repeat = prompt_inputs['images'].repeat_interleave(self.num_generations, dim=0)
-        audios_repeat = prompt_inputs['audios'].repeat_interleave(self.num_generations, dim=0)
+        # audios_repeat = prompt_inputs['audios'].repeat_interleave(self.num_generations, dim=0)
         prompts_repeat = {}
         prompts_repeat['input_ids'] =  prompt_inputs['prompts']['input_ids'].repeat_interleave(self.num_generations, dim=0)
         prompts_repeat['token_type_ids'] =  prompt_inputs['prompts']['token_type_ids'].repeat_interleave(self.num_generations, dim=0)
         prompts_repeat['attention_mask'] =  prompt_inputs['prompts']['attention_mask'].repeat_interleave(self.num_generations, dim=0)
       
 
-        per_token_logps = self._get_per_token_logps_video(model, prompt_completion_ids_repeat, attention_mask, images_repeat, audios_repeat, prompts_repeat, answer_length)
+        per_token_logps = self._get_per_token_logps_video(model, prompt_completion_ids_repeat, attention_mask, images_repeat, prompts_repeat, answer_length)
 
         per_token_logps = per_token_logps
   
 
         with torch.inference_mode():
             if self.ref_model is not None:
-                ref_per_token_logps = self._get_per_token_logps_video(self.ref_model, prompt_completion_ids_repeat, attention_mask, images_repeat, audios_repeat, prompts_repeat, answer_length )
+                ref_per_token_logps = self._get_per_token_logps_video(self.ref_model, prompt_completion_ids_repeat, attention_mask, images_repeat, prompts_repeat, answer_length )
             else:
                 with self.accelerator.unwrap_model(model).disable_adapter():
                     if use_image:
@@ -531,9 +621,45 @@ class HumanOmniVLGRPOTrainer(Trainer):
                     if use_video:
                         ref_per_token_logps = self._get_per_token_logps_video(model, prompt_completion_ids, attention_mask, pixel_values_videos, video_grid_thw)
         ref_per_token_logps = ref_per_token_logps
-
+        
+        # Compute the KL divergence between the model and the reference model
         per_token_kl = torch.exp(ref_per_token_logps - per_token_logps) - (ref_per_token_logps - per_token_logps) - 1
-
+        
+        #compute temporal rewards
+        if self.temporal :
+            shuffled_completions = self.processing_class.batch_decode(shuffled_completion_ids, skip_special_tokens=True)
+            if is_conversational(inputs[0]):
+                shuffled_completions = [[{"role": "assistant", "content": shuffled_completion}] for shuffled_completion in shuffled_completions]
+            #compute the rewards
+            shuffled_prompts = [prompt for prompt in prompts for _ in range(self.shuffled_num_generations)]
+            shuffled_rewards_per_func = torch.zeros(len(shuffled_prompts), len(self.reward_funcs), device=device)
+            for i, (reward_func, reward_processing_class) in enumerate(
+                zip(self.reward_funcs, self.reward_processing_classes)
+            ):   
+                if isinstance(reward_func, PreTrainedModel):
+                    if is_conversational(inputs[0]):
+                        messages = [{"messages": p + c} for p, c in zip(shuffled_prompts, shuffled_completions)]
+                        texts = [apply_chat_template(x, reward_processing_class)["text"] for x in messages]
+                    else:
+                        texts = [p + c for p, c in zip(shuffled_prompts, shuffled_completions)]
+                    shuffled_reward_inputs = reward_processing_class(
+                        texts, return_tensors="pt", padding=True, padding_side="right", add_special_tokens=False
+                    )
+                    shuffled_reward_inputs = super()._prepare_inputs(shuffled_reward_inputs)
+                    with torch.inference_mode():
+                        shuffled_rewards_per_func[:, i] = reward_func(**shuffled_reward_inputs).logits[:, 0]
+                else:
+                    # Repeat all input columns (but "prompt" and "completion") to match the number of generations
+                    shuffled_reward_kwargs = {key: [] for key in inputs[0].keys() if key not in ["prompt", "completion"]}
+                    for key in shuffled_reward_kwargs:
+                        for example in inputs:
+                            # Repeat each value in the column for `num_generations` times
+                            # self.shuffled_num_generations = self.num_generations // 2  in order to sava memory
+                            shuffled_reward_kwargs[key].extend([example[key]] * self.shuffled_num_generations)
+                    shuffled_output_reward_func = reward_func(prompts=shuffled_prompts, completions=shuffled_completions, **shuffled_reward_kwargs)
+                    shuffled_rewards_per_func[:, i] = torch.tensor(shuffled_output_reward_func, dtype=torch.float32, device=device)
+                    
+          
         # Decode the generated completions
         completions = self.processing_class.batch_decode(completion_ids, skip_special_tokens=True)
         if is_conversational(inputs[0]):
@@ -570,8 +696,43 @@ class HumanOmniVLGRPOTrainer(Trainer):
                 output_reward_func = reward_func(prompts=prompts, completions=completions, **reward_kwargs)
                 rewards_per_func[:, i] = torch.tensor(output_reward_func, dtype=torch.float32, device=device)
 
+        if self.temporal :
+            temporal_rewards_per_func = rewards_per_func.clone()
+            
+            acc_mean = temporal_rewards_per_func[:,0].mean()
+            shuffled_acc_mean = shuffled_rewards_per_func[:,0].mean()
+            
+            if acc_mean >=0.8 * shuffled_acc_mean:
+                mask = temporal_rewards_per_func[:,0] >0.1
+                temporal_rewards_per_func[mask,0] = shuffled_rewards_per_func[mask,0] + 0.3
+                temporal_rewards = torch.tensor([1.0]).to('cuda')
+            else:
+                temporal_rewards = torch.tensor([0.0]).to('cuda')
+        else:
+            temporal_rewards =  torch.tensor([0.5]).to('cuda')
+        
         # Sum the rewards from all reward functions
-        rewards = rewards_per_func.sum(dim=1)
+        # rewards = rewards_per_func.sum(dim=1)
+        
+        if self.temporal:
+            rewards = temporal_rewards_per_func.sum(dim=1) 
+        else:
+            rewards = rewards_per_func.sum(dim=1)    
+            
+            
+                
+        if self.len_control:
+            mem_rewards = [0] * self.num_generations
+            mask = rewards_per_func[:,0] > 0.1
+            length_list = completion_mask.sum(1)
+            selected_indices = torch.nonzero(mask,as_tuple=True)[0].tolist()
+            
+            if len(selected_indices) > 1:
+                for idx in selected_indices:
+                    if 320 <= length_list[idx] <= 512:          #FIXME:320-512需要根据model人为修改？
+                        rewards[idx] +=0.2
+        # print(rewards)
+        # print(completion_mask.sum(1))
 
         # Compute grouped-wise rewards
         mean_grouped_rewards = rewards.view(-1, self.num_generations).mean(dim=1)
@@ -599,6 +760,23 @@ class HumanOmniVLGRPOTrainer(Trainer):
                 reward_func_name = reward_func.__name__
             self._metrics[f"rewards/{reward_func_name}"].append(reward_per_func[i].item())
 
+        gathered_rewards = self.accelerator.gather_for_metrics(rewards)
+        
+        num_devices = gathered_rewards.size(0) // self.num_generations
+        rewards_per_device = gathered_rewards.view(num_devices, self.num_generations)
+        wrong_devices = (rewards_per_device <= 1).all(dim=1)
+        wrong_ratio = wrong_devices.sum().item() / num_devices
+        
+        correct_devices = (rewards_per_device >= 2).all(dim=1)
+        correct_ratio = correct_devices.sum().item() / num_devices
+        
+        self._metrics["all_wrong"].append(wrong_ratio)
+        self._metrics["all_correct"].append(correct_ratio)
+        
+        if self.temporal:
+            temporal_rewards_list = self.accelerator.gather_for_metrics(temporal_rewards)
+            self._metrics["temporal_rewards"].append(self.accelerator.gather_for_metrics(temporal_rewards_list).mean().item())
+          
         self._metrics["reward"].append(self.accelerator.gather_for_metrics(rewards).mean().item())
 
         self._metrics["reward_std"].append(self.accelerator.gather_for_metrics(std_grouped_rewards).mean().item())

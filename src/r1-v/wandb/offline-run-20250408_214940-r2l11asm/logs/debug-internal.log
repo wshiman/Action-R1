@@ -1,0 +1,15 @@
+{"time":"2025-04-08T21:49:41.084733776+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"/data/data2/shiman/R1-Omni/src/r1-v/wandb/offline-run-20250408_214940-r2l11asm/logs/debug-core.log"}
+{"time":"2025-04-08T21:49:41.197690946+08:00","level":"WARN","msg":"GraphQL client is nil, skipping feature loading"}
+{"time":"2025-04-08T21:49:41.197888478+08:00","level":"INFO","msg":"created new stream","id":"r2l11asm"}
+{"time":"2025-04-08T21:49:41.197944812+08:00","level":"INFO","msg":"stream: started","id":"r2l11asm"}
+{"time":"2025-04-08T21:49:41.197970182+08:00","level":"INFO","msg":"handler: started","stream_id":"r2l11asm"}
+{"time":"2025-04-08T21:49:41.197996102+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"r2l11asm"}
+{"time":"2025-04-08T21:49:41.197980362+08:00","level":"INFO","msg":"sender: started","stream_id":"r2l11asm"}
+{"time":"2025-04-08T21:49:41.204749767+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-08T21:49:42.207520253+08:00","level":"INFO","msg":"stream: closing","id":"r2l11asm"}
+{"time":"2025-04-08T21:49:42.207562667+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-08T21:49:42.20759216+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-08T21:49:42.207703116+08:00","level":"INFO","msg":"handler: closed","stream_id":"r2l11asm"}
+{"time":"2025-04-08T21:49:42.207714883+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"r2l11asm"}
+{"time":"2025-04-08T21:49:42.207727326+08:00","level":"INFO","msg":"sender: closed","stream_id":"r2l11asm"}
+{"time":"2025-04-08T21:49:42.207773801+08:00","level":"INFO","msg":"stream: closed","id":"r2l11asm"}

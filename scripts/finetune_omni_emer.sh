@@ -1,8 +1,8 @@
 #!/bin/bash
-
+export CUDA_VISIBLE_DEVICES=7
 # Environment Variables
 ARG_WORLD_SIZE=${1:-1}
-ARG_NPROC_PER_NODE=${2:-8}
+ARG_NPROC_PER_NODE=${2:-1}
 ARG_MASTER_ADDR="127.0.0.1"
 ARG_MASTER_PORT=16666
 ARG_RANK=0
@@ -30,26 +30,25 @@ echo $GRADIENT_ACCUMULATION_STEPS
 # Log Arguments
 export TRANSFORMERS_OFFLINE=1
 export WANDB_PROJECT=humanomniqwen2_siglip
-export HF_HOME=/mnt/data/jiaxing.zjx/cache/huggingface/
+export HF_HOME=/data/data2/shiman/R1-Omni/hfhome/
 export HF_ENDPOINT=http://hf-mirror.com
 RUN_NAME=EMER_SFT
 
 OUTP_DIR=work_dirs
-
+echo 'hello'
 torchrun --nnodes $WORLD_SIZE \
     --nproc_per_node $NPROC_PER_NODE \
     --master_addr=$MASTER_ADDR \
     --master_port=$MASTER_PORT \
     --node_rank $RANK \
-    humanomni/train_flash_attn.py \
-    --deepspeed scripts/zero3.json \
+    /data/data2/shiman/R1-Omni/humanomni/train_flash_attn.py \
+    --deepspeed /data/data2/shiman/R1-Omni/scripts/zero3.json \
     --model_type HumanOmni_qwen2 \
-    --model_path /mnt/data/jiaxing.zjx/code/R1-V-Qwen/R1-V/HumanOmni-0.5B \
-    --vision_tower google/siglip-base-patch16-224 \
-    --audio_tower openai/whisper-large-v3 \
+    --model_path /data/data2/shiman/R1-Omni/humanomni-0.5B \
+    --vision_tower /data/data2/shiman/R1-Omni/siglip-224 \
     --mm_projector_type all_in_one_small \
-    --mm_tunable_parts "mm_mlp_adapter,audio_projector,mm_language_model" \
-    --data_path   ./yamls/emotion_emer.yaml \
+    --mm_tunable_parts "mm_mlp_adapter,mm_language_model" \
+    --data_path   /data/data2/shiman/R1-Omni/data_json/cold_start.json \
     --data_folder / \
     --mm_vision_select_layer -2 \
     --image_aspect_ratio pad \

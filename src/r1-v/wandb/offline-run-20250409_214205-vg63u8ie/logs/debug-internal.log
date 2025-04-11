@@ -1,0 +1,15 @@
+{"time":"2025-04-09T21:42:06.05030841+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"/data/data2/shiman/R1-Omni/src/r1-v/wandb/offline-run-20250409_214205-vg63u8ie/logs/debug-core.log"}
+{"time":"2025-04-09T21:42:06.162750868+08:00","level":"WARN","msg":"GraphQL client is nil, skipping feature loading"}
+{"time":"2025-04-09T21:42:06.162940326+08:00","level":"INFO","msg":"created new stream","id":"vg63u8ie"}
+{"time":"2025-04-09T21:42:06.162989519+08:00","level":"INFO","msg":"stream: started","id":"vg63u8ie"}
+{"time":"2025-04-09T21:42:06.163006444+08:00","level":"INFO","msg":"handler: started","stream_id":"vg63u8ie"}
+{"time":"2025-04-09T21:42:06.16305476+08:00","level":"INFO","msg":"sender: started","stream_id":"vg63u8ie"}
+{"time":"2025-04-09T21:42:06.163074717+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"vg63u8ie"}
+{"time":"2025-04-09T21:42:06.168455394+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-09T21:42:26.193035482+08:00","level":"INFO","msg":"stream: closing","id":"vg63u8ie"}
+{"time":"2025-04-09T21:42:26.193080874+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-09T21:42:26.193134872+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-09T21:42:26.193298458+08:00","level":"INFO","msg":"handler: closed","stream_id":"vg63u8ie"}
+{"time":"2025-04-09T21:42:26.193316029+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"vg63u8ie"}
+{"time":"2025-04-09T21:42:26.193363143+08:00","level":"INFO","msg":"sender: closed","stream_id":"vg63u8ie"}
+{"time":"2025-04-09T21:42:26.193422662+08:00","level":"INFO","msg":"stream: closed","id":"vg63u8ie"}

@@ -1,0 +1,4019 @@
+[
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/103.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/026.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/113.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/078.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/109.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/070.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/101.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/042.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/061.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/050.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/010.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/011.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/047.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/107.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/093.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/039.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/033.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/016.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/081.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/017.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/087.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/080.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/055.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/018.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/009.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/045.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/072.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/027.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/029.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/098.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/067.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/031.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/020.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/036.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/074.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/053.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/051.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/065.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/075.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/030.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/091.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/056.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/023.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/090.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/112.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/040.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/068.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/063.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/085.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/114.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/004.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/088.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/106.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/046.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/041.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/104.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/008.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/006.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/102.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/002.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/099.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/015.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/086.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/044.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/108.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/032.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/025.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/034.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/092.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/083.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/097.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/035.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/096.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/049.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/076.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/038.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/105.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/073.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/007.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/054.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/019.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/062.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/003.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/022.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/024.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/037.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/082.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/060.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/064.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/059.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/012.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/057.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/052.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/066.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/110.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/111.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/084.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/069.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/058.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/077.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/013.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/001.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/089.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/095.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/021.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/100.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/028.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/115.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/043.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/079.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/014.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/071.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/048.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/094.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/falling/005.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "falling"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/026.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/078.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/070.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/042.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/061.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/050.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/010.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/011.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/047.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/093.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/039.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/033.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/016.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/081.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/017.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/087.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/080.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/055.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/018.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/009.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/045.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/072.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/027.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/029.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/098.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/067.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/031.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/020.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/036.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/074.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/053.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/051.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/065.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/075.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/030.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/091.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/056.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/023.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/090.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/040.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/068.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/063.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/085.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/004.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/088.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/046.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/041.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/008.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/006.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/002.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/099.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/015.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/086.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/044.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/032.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/025.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/034.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/092.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/083.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/097.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/035.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/096.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/049.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/076.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/038.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/073.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/007.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/054.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/019.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/062.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/003.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/022.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/024.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/037.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/082.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/060.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/064.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/059.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/012.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/057.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/052.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/066.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/084.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/069.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/058.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/077.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/013.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/001.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/089.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/095.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/021.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/100.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/028.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/043.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/079.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/014.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/071.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/048.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/094.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/squatting/005.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "squatting"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/026.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/042.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/51.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/79.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/90.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/050.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/010.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/011.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/54.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/047.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/81.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/94.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/63.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/80.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/78.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/039.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/033.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/016.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/017.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/83.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/65.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/018.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/009.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/57.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/045.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/027.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/029.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/59.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/97.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/031.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/036.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/84.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/58.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/99.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/87.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/76.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/030.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/52.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/72.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/023.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/88.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/61.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/004.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/046.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/041.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/008.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/006.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/53.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/002.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/93.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/75.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/96.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/85.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/71.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/66.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/044.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/62.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/032.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/025.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/034.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/035.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/74.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/95.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/038.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/89.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/92.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/007.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/003.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/55.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/022.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/68.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/024.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/037.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/012.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/86.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/60.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/013.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/001.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/67.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/69.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/021.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/70.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/82.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/100.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/91.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/64.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/028.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/043.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/73.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/98.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/014.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/048.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/005.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    },
+    {
+        "video": "/data/data2/shiman/cpmv2.6/data/lying/56.mp4",
+        "conversations": [
+            {
+                "from": "human",
+                "value": "<video>\nAs an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
+            },
+            {
+                "from": "gpt",
+                "value": "lying"
+            }
+        ]
+    }
+]

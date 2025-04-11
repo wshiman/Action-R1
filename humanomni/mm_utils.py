@@ -17,10 +17,11 @@ import random
 from .constants import NUM_FRAMES, MAX_FRAMES, NUM_FRAMES_PER_SECOND, MODAL_INDEX_MAP, DEFAULT_IMAGE_TOKEN
 import concurrent.futures
 import ipdb
+# from .myvideo import VideoReader_cv2,cpu
 
-def chunk_list(input_list, chunk_size):
+def chunk_list(input_list, chunk_size):     #用于切分
     return [input_list[i:i + chunk_size] for i in range(0, len(input_list), chunk_size)]
-
+# 返回一个新的列表，其中每个元素是一个子列表（块），每个子列表的长度最多为 chunk_size
 
 def load_image_from_base64(image):
     return Image.open(BytesIO(base64.b64decode(image)))
@@ -31,8 +32,8 @@ def expand2square(pil_img, background_color):
     if width == height:
         return pil_img
     elif width > height:
-        result = Image.new(pil_img.mode, (width, width), background_color)
-        result.paste(pil_img, (0, (width - height) // 2))
+        result = Image.new(pil_img.mode, (width, width), background_color)      #创建一个pil_img.mode（例如RGB）；(width, width)确保为正方形； background_color为底色的背景图
+        result.paste(pil_img, (0, (width - height) // 2))       #将原图形paste上去，同时(width - height) // 2)保证垂直居中
         return result
     else:
         result = Image.new(pil_img.mode, (height, height), background_color)
@@ -55,16 +56,16 @@ def create_photo_grid(arr, rows=None, cols=None):
 
     if isinstance(arr, list):
         if isinstance(arr[0], Image.Image):
-            arr = np.stack([np.array(img) for img in arr])
+            arr = np.stack([np.array(img) for img in arr])      #将image转化成array stack起来
         elif isinstance(arr[0], np.ndarray):
             arr = np.stack(arr)
         else:
             raise ValueError("Invalid input type. Expected list of Images or numpy arrays.")
 
-    t, h, w, c = arr.shape
-    
+    t, h, w, c = arr.shape      #t是视频的帧数，一组图像的数目，t为0维
+    #后面的目的是为了将这组图片按照网格一样排列起来（区分patch）
     # Calculate the number of rows and columns if not provided
-    if rows is None and cols is None:
+    if rows is None and cols is None:       
         rows = math.ceil(math.sqrt(t))
         cols = math.ceil(t / rows)
     elif rows is None:
@@ -78,10 +79,10 @@ def create_photo_grid(arr, rows=None, cols=None):
     
     # Create the grid array with appropriate height and width
     grid_height = h * rows
-    grid_width = w * cols
+    grid_width = w * cols           #每帧图片都具有H,W的像素点
     grid = np.zeros((grid_height, grid_width, c), dtype=arr.dtype)
     
-    # Fill the grid with images
+    # Fill the grid with images     将array放进去
     for i in range(t):
         row_idx = i // cols
         col_idx = i % cols
@@ -107,7 +108,7 @@ def select_best_resolution(original_size, possible_resolutions):
 
     for width, height in possible_resolutions:
         # Calculate the downscaled size to keep the aspect ratio
-        scale = min(width / original_width, height / original_height)
+        scale = min(width / original_width, height / original_height)       #original 像素比possible像素都要小，目的是降低分别率到最优的（损失最小的），而不是考虑将像素点扩展
         downscaled_width, downscaled_height = int(original_width * scale), int(original_height * scale)
 
         # Calculate effective and wasted resolutions
@@ -141,7 +142,7 @@ def resize_and_pad_image(image, target_resolution):
     if scale_w < scale_h:
         # Width will be filled completely
         new_width = target_width
-        new_height = min(math.ceil(original_height * scale_w), target_height)
+        new_height = min(math.ceil(original_height * scale_w), target_height)       #取较小者进行resize和pad
     else:
         # Height will be filled completely
         new_height = target_height
@@ -154,6 +155,7 @@ def resize_and_pad_image(image, target_resolution):
     new_image = Image.new("RGB", (target_width, target_height), (0, 0, 0))
     paste_x = (target_width - new_width) // 2
     paste_y = (target_height - new_height) // 2
+    #居中显示
     new_image.paste(resized_image, (paste_x, paste_y))
 
     return new_image
@@ -190,7 +192,7 @@ def process_anyres_image(image, processor, grid_pinpoints):
         torch.Tensor: A tensor containing the processed image patches.
     """
     # Convert grid_pinpoints from string to list
-    if isinstance(grid_pinpoints, str) and "x" in grid_pinpoints:
+    if isinstance(grid_pinpoints, str) and "x" in grid_pinpoints:       #可以推知grid_pinpoints是类似于224x224的形式
         try:
             patch_size = processor.size[0]
         except Exception as e:
@@ -201,19 +203,19 @@ def process_anyres_image(image, processor, grid_pinpoints):
         range_start = tuple(map(int, matches[0]))
         range_end = tuple(map(int, matches[-1]))
         # Generate a matrix of tuples from (range_start[0], range_start[1]) to (range_end[0], range_end[1])
-        grid_pinpoints = [(i, j) for i in range(range_start[0], range_end[0] + 1) for j in range(range_start[1], range_end[1] + 1)]
+        grid_pinpoints = [(i, j) for i in range(range_start[0], range_end[0] + 1) for j in range(range_start[1], range_end[1] + 1)] #生成坐标矩阵
         # Multiply all elements by patch_size
-        grid_pinpoints = [[dim * patch_size for dim in pair] for pair in grid_pinpoints]
+        grid_pinpoints = [[dim * patch_size for dim in pair] for pair in grid_pinpoints]        #将坐标乘以patch_size进行扩大
 
     if type(grid_pinpoints) is list:
         possible_resolutions = grid_pinpoints
     else:
-        possible_resolutions = ast.literal_eval(grid_pinpoints)
-   # print("@@@@@@@", image.size)
+        possible_resolutions = ast.literal_eval(grid_pinpoints)     #这行代码通常用于从  字符串形式  的配置或数据中提取结构化信息
+#    print("@@@@@@@", image.size) 
     best_resolution = select_best_resolution(image.size, possible_resolutions)
     
     image_padded = resize_and_pad_image(image, best_resolution)
-  #  print("@@@@@", processor.size)
+  # print("@@@@@", processor.size)
     patches = divide_to_patches(image_padded, processor.size["height"])
     print("image.size:", image.size, "possible_resolutions:", possible_resolutions, "best_resolution:", best_resolution, len(patches))
     # FIXME: this seems to be a bug that it resizes instead of pad.
@@ -232,7 +234,7 @@ def process_anyres_image(image, processor, grid_pinpoints):
 
 
 def read_video_patch(patch_info, data_folder="/mnt/data/yixing.pyx/checkpoints/Oryx-SFT-DATA"):
-   # import ipdb;ipdb.set_trace()
+#    import ipdb;ipdb.set_trace()
     is_image = False
     if 'img_path' in patch_info.keys():
         image = Image.open(patch_info['img_path']).convert('RGB')
@@ -357,7 +359,7 @@ def process_video(video_path, processor, s=None, e=None, aspect_ratio='pad', num
 
         # 1. Loading Video
         if os.path.isdir(video_path):                
-            frame_files = sorted(os.listdir(video_path))
+            frame_files = sorted(os.listdir(video_path))        #确保图片的顺序与时序保持一致，最好是事先对图片进行编号命名
 
             fps = 3
             num_frames_of_video = len(frame_files)
@@ -393,6 +395,8 @@ def process_video(video_path, processor, s=None, e=None, aspect_ratio='pad', num
             video_data = [Image.fromarray(cv2.cvtColor(frame, cv2.COLOR_RGBA2RGB)) for idx, frame in enumerate(gif_reader) if idx in sampled_frame_indices]
         else:
             video_data = [Image.fromarray(frame) for frame in vreader.get_batch(sampled_frame_indices).asnumpy()]
+            # video_data = [Image.fromarray(frame) for frame in vreader.get_batch(sampled_frame_indices)]
+
     
     elif isinstance(video_path, np.ndarray):
         video_data = [Image.fromarray(f) for f in video_path]
@@ -407,6 +411,7 @@ def process_video(video_path, processor, s=None, e=None, aspect_ratio='pad', num
     while num_frames is not None and len(video_data) < num_frames:
         video_data.append(Image.fromarray(np.zeros((*video_data[-1].size, 3), dtype=np.uint8)))
     if aspect_ratio == 'pad':
+        # import ipdb; ipdb.set_trace()
         images = [expand2square(f, tuple(int(x*255) for x in processor.image_mean)) for f in video_data]
         video = processor.preprocess(images, return_tensors='pt')['pixel_values']
     else:

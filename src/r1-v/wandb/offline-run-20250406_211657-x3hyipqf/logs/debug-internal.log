@@ -1,0 +1,15 @@
+{"time":"2025-04-06T21:16:57.373816289+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"/data/data2/shiman/R1-Omni/src/r1-v/wandb/offline-run-20250406_211657-x3hyipqf/logs/debug-core.log"}
+{"time":"2025-04-06T21:16:57.490697793+08:00","level":"WARN","msg":"GraphQL client is nil, skipping feature loading"}
+{"time":"2025-04-06T21:16:57.490866544+08:00","level":"INFO","msg":"created new stream","id":"x3hyipqf"}
+{"time":"2025-04-06T21:16:57.490917048+08:00","level":"INFO","msg":"stream: started","id":"x3hyipqf"}
+{"time":"2025-04-06T21:16:57.490938827+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"x3hyipqf"}
+{"time":"2025-04-06T21:16:57.491007671+08:00","level":"INFO","msg":"sender: started","stream_id":"x3hyipqf"}
+{"time":"2025-04-06T21:16:57.491081882+08:00","level":"INFO","msg":"handler: started","stream_id":"x3hyipqf"}
+{"time":"2025-04-06T21:16:57.497101932+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-04-06T21:16:58.499913418+08:00","level":"INFO","msg":"stream: closing","id":"x3hyipqf"}
+{"time":"2025-04-06T21:16:58.499955445+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-04-06T21:16:58.50004496+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-04-06T21:16:58.500235058+08:00","level":"INFO","msg":"handler: closed","stream_id":"x3hyipqf"}
+{"time":"2025-04-06T21:16:58.500254207+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":"x3hyipqf"}
+{"time":"2025-04-06T21:16:58.500264072+08:00","level":"INFO","msg":"sender: closed","stream_id":"x3hyipqf"}
+{"time":"2025-04-06T21:16:58.50033885+08:00","level":"INFO","msg":"stream: closed","id":"x3hyipqf"}

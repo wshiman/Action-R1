@@ -17,12 +17,13 @@ import numpy as np
 
 from humanomni import model_init, mm_infer
 
+#correct it for your own path
 ds_collections = {
     'emotion': {'path': '/mnt/data/qize.yqz/datasets/human/annos/1021_val_MAFW_DFEW_it_without_tag.json'}
 }
 
 from transformers import BertModel, BertTokenizer
-bert_model = "bert-base-uncased"
+bert_model = "/data/data2/shiman/R1-Omni/bert-base-uncased"
 bert_tokenizer = BertTokenizer.from_pretrained(bert_model)
 
 def weighted_average_recall(y_true, y_pred):

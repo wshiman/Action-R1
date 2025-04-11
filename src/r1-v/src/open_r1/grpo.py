@@ -25,7 +25,7 @@ from transformers import Qwen2VLForConditionalGeneration
 from math_verify import parse, verify
 from open_r1.trainer import Qwen2VLGRPOTrainer, Qwen2VLGRPOVLLMTrainer, HumanOmniVLGRPOTrainer
 from trl import GRPOConfig, GRPOTrainer, ModelConfig, ScriptArguments, TrlParser, get_peft_config
-
+from openai import OpenAI
 
 @dataclass
 class GRPOScriptArguments(ScriptArguments):
@@ -49,7 +49,30 @@ class GRPOScriptArguments(ScriptArguments):
         default=3136,
         metadata={"help": "Minimum number of pixels for the image"},
     )
+    temporal: Optional[bool] = field(
+        default=True,
+        metadata={"help": "whether using temporal GRPO"},
+    )
+    len_control: Optional[bool] = field(
+        default=True,
+        metadata={"help": "whether using length reward"},
+    )
 
+def ask_api(question,api_key):
+    client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+
+    response = client.chat.completions.create(
+        model="deepseek-chat",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant"},
+            {"role": "user", "content": question},
+        ],
+        stream=False
+    )
+
+    return response.choices[0].message.content
+
+api_key='sk-faa9b1c39b6f4f2aae2c0208c26eb421'
 
 def accuracy_reward(completions, solution, **kwargs):
     """Reward function that checks if the completion is correct using either symbolic verification or exact string matching."""
@@ -60,6 +83,7 @@ def accuracy_reward(completions, solution, **kwargs):
     for video, content, sol in zip(videos, contents, solution):
         reward = 0.0
         # Try symbolic verification first
+        #symbolic verification主要用于对mathmatical问题的验证，这里parse和verify是math_verify库中的函数
         try:
             answer = parse(content)
             if float(verify(answer, parse(sol))) > 0:
@@ -68,6 +92,7 @@ def accuracy_reward(completions, solution, **kwargs):
             pass  # Continue to next verification method if this fails
 
         # If symbolic verification failed, try string matching
+        # 进行字符串匹配
         if reward == 0.0:
             try:
                 # Extract answer from solution if it has think/answer tags
@@ -83,7 +108,28 @@ def accuracy_reward(completions, solution, **kwargs):
                     reward = 1.0
             except Exception:
                 pass  # Keep reward as 0.0 if both methods fail
+        #NOTE: 字符串匹配匹配会出错，在action recognition中,label和answer并不一定完全相同，可能是近义词，采用过一层api来进行同义词匹配        
+        if reward == 0.0:
+            try:
+                # Extract answer from solution if it has think/answer tags
+                sol_match = re.search(r'<answer>(.*?)</answer>', sol)
+                ground_truth = sol_match.group(1).strip() if sol_match else sol.strip()
                 
+                # Extract answer from content if it has think/answer tags
+                content_match = re.search(r'<answer>(.*?)</answer>', content)
+                student_answer = content_match.group(1).strip() if content_match else content.strip()
+                
+                #调用api来判断ground truth和student_answer是否为近义词
+                question = f"Whether {ground_truth} and {student_answer} have the similar meaning or express the similar action, you only have to answer yes or no"
+                flag = ask_api(question=question,api_key=api_key)
+                if flag.strip().lower() == "yes":
+                    reward = 1.0
+                else:
+                    reward = 0.0
+            except Exception:
+                pass    # If all methods fail, reward remains 0.0
+            
+                    
         rewards.append(reward)
         if os.getenv("DEBUG_MODE") == "true":
             log_path = os.getenv("LOG_PATH")
@@ -144,7 +190,7 @@ def load_video_dataset(json_path):
         for conversation in entry['conversations']:
             if conversation['from'] == 'human':
               #  problem = conversation['value'].replace('<video>\n<audio>\n', '')
-                problem = "As an emotional recognition expert; throughout the video, which emotion conveyed by the characters is the most obvious to you?"
+                problem = "As an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
 
             elif conversation['from'] == 'gpt' and problem is not None:
                 solution = f"<answer> {conversation['value']} </answer>"
@@ -165,7 +211,7 @@ def main(script_args, training_args, model_args):
     reward_funcs = [reward_funcs_registry[func] for func in script_args.reward_funcs]
 
     # Load the dataset
-    json_file_path = "Path_to_MAFW_DFEW.json"
+    json_file_path = "/data/data2/shiman/R1-Omni/data_json/rl.json"
     dataset = load_video_dataset(json_file_path)
    # dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
     
@@ -194,7 +240,15 @@ def main(script_args, training_args, model_args):
 
     # QUESTION_TEMPLATE = "{Question}  Output the thinking process in <think> </think> and final answer (number) in <answer> </answer> tags."
 
-    QUESTION_TEMPLATE = "{Question}\nOutput the thinking process in <think> </think> and final emotion in <answer> </answer> tags."
+    # QUESTION_TEMPLATE = "{Question}\nOutput the thinking process in <think> </think> and final action in <answer> </answer> tags."
+    QUESTION_TEMPLATE = (
+    "{Question}\n"
+    "Please think about this question as if you were a human pondering deeply. "
+    "Engage in an internal dialogue using expressions such as 'let me think', 'wait', 'Hmm', 'oh, I see', 'let's break it down', etc, or other natural language thought expressions "
+    "It's encouraged to include self-reflection or verification in the reasoning process. "
+    "Provide your detailed reasoning between the <think> </think> tags, and then give your final answer between the <answer> </answer> tags."
+    )
+    
     def make_conversation_image(example):
         return {
             "prompt": [
@@ -243,6 +297,7 @@ def main(script_args, training_args, model_args):
         model=model_args.model_name_or_path,
         reward_funcs=reward_funcs,
         args=training_args,
+        script_args=script_args,
         train_dataset=dataset[script_args.dataset_train_split],
         eval_dataset=dataset[script_args.dataset_test_split] if training_args.eval_strategy != "no" else None,
         peft_config=get_peft_config(model_args),

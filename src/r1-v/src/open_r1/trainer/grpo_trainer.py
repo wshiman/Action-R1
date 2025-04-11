@@ -161,6 +161,7 @@ class Qwen2VLGRPOTrainer(Trainer):
         model: Union[str, PreTrainedModel],
         reward_funcs: Union[RewardFunc, list[RewardFunc]],
         args: GRPOConfig = None,
+        script_args = None,
         train_dataset: Optional[Union[Dataset, IterableDataset]] = None,
         eval_dataset: Optional[Union[Dataset, IterableDataset, dict[str, Union[Dataset, IterableDataset]]]] = None,
         processing_class: Optional[PreTrainedTokenizerBase] = None,
@@ -290,6 +291,7 @@ class Qwen2VLGRPOTrainer(Trainer):
         self.max_prompt_length = args.max_prompt_length
         self.max_completion_length = args.max_completion_length  # = |o_i| in the GRPO paper
         self.num_generations = args.num_generations  # = G in the GRPO paper
+        self.temporal = script_args.temporal
         self.generation_config = GenerationConfig(
             max_new_tokens=self.max_completion_length,
             do_sample=True,  
@@ -298,7 +300,23 @@ class Qwen2VLGRPOTrainer(Trainer):
             pad_token_id=pad_token_id,
         )
         self.beta = args.beta
-
+        
+        self.shuffled_num_generations = self.num_generations // 2
+        self.shuffled_generation_config = GenerationConfig(
+            max_new_tokens=self.max_completion_length,
+            do_sample=True,
+            temperature=1, # HACK
+            num_return_sequences=self.shuffled_num_generations,
+            pad_token_id=pad_token_id,
+        )
+        self.dummy_generation_config = GenerationConfig(
+            max_new_tokens=1,
+            do_sample=True,
+            temperature=1, # HACK
+            num_return_sequences=1,
+            pad_token_id=pad_token_id,
+        )       
+        self.len_control = script_args.len_control
         # The trainer estimates the number of FLOPs (floating-point operations) using the number of elements in the
         # input tensor associated with the key "input_ids". However, in GRPO, the sampled data does not include the
         # "input_ids" key. Instead, the available keys is "prompt". As a result, the trainer issues the warning:
@@ -443,6 +461,24 @@ class Qwen2VLGRPOTrainer(Trainer):
         if self.max_prompt_length is not None:
             prompt_ids = prompt_ids[:, -self.max_prompt_length :]
             prompt_mask = prompt_mask[:, -self.max_prompt_length :]
+            
+        if self.temporal and video_inputs:
+            indices = torch.randperm(video_inputs[0].size(0))
+            shuffled_video_inputs = video_inputs[0][indices]
+            shuffled_prompt_inputs = self.processing_class(
+                text=copy.deepcopy(prompts_text),
+                images=image_inputs,
+                videos=shuffled_video_inputs,
+                return_tensors="pt",
+                padding=True,
+                padding_side="left",
+                add_special_tokens=False,
+            )
+            shuffled_prompt_inputs = super()._prepare_inputs(shuffled_prompt_inputs)
+            shuffled_prompt_ids, shuffled_prompt_mask = shuffled_prompt_inputs["input_ids"], shuffled_prompt_inputs["attention_mask"]
+            if self.max_prompt_length is not None:
+                shuffled_prompt_ids = shuffled_prompt_ids[:, -self.max_prompt_length :]
+                shuffled_prompt_mask = shuffled_prompt_mask[:, -self.max_prompt_length :]
 
         # Generate completions
         with unwrap_model_for_generation(model, self.accelerator) as unwrapped_model:
@@ -451,6 +487,18 @@ class Qwen2VLGRPOTrainer(Trainer):
             prompt_ids = prompt_completion_ids[:, :prompt_length]
             completion_ids = prompt_completion_ids[:, prompt_length:]
             prompt_mask = prompt_mask.repeat_interleave(self.num_generations, dim=0)
+            if self.temporal:
+                
+                if video_inputs:
+                    shuffled_prompt_completion_ids = unwrapped_model.generate(**shuffled_prompt_inputs, generation_config=self.shuffled_generation_config)
+                    shuffled_prompt_length = shuffled_prompt_ids.size(1)
+                    shuffled_prompt_ids = shuffled_prompt_completion_ids[:, :shuffled_prompt_length]
+                    shuffled_completion_ids = shuffled_prompt_completion_ids[:, shuffled_prompt_length:]
+                    shuffled_prompt_mask = prompt_mask.repeat_interleave(self.shuffled_num_generations, dim=0) 
+                                       
+                else:
+                    shuffled_prompt_completion_ids = unwrapped_model.generate(**prompt_inputs, generation_config=self.dummy_generation_config)
+
         # Mask everything after the first EOS token
         is_eos = completion_ids == self.processing_class.eos_token_id
         device = self.accelerator.device
@@ -458,6 +506,9 @@ class Qwen2VLGRPOTrainer(Trainer):
         eos_idx[is_eos.any(dim=1)] = is_eos.int().argmax(dim=1)[is_eos.any(dim=1)]
         sequence_indices = torch.arange(is_eos.size(1), device=device).expand(is_eos.size(0), -1)
         completion_mask = (sequence_indices <= eos_idx.unsqueeze(1)).int()
+        
+        # prompt_inputs.pop("input_ids", None)
+        # prompt_inputs.pop("attention_mask", None)
 
         # Concatenate prompt_mask with completion_mask for logit computation
         attention_mask = torch.cat([prompt_mask, completion_mask], dim=1)  # (B*G, P+C)
@@ -492,6 +543,26 @@ class Qwen2VLGRPOTrainer(Trainer):
         # Compute the KL divergence between the model and the reference model
         per_token_kl = torch.exp(ref_per_token_logps - per_token_logps) - (ref_per_token_logps - per_token_logps) - 1
 
+        if self.temporal and video_inputs:
+            shuffled_completions = self.processing_class.batch_decode(shuffled_completion_ids, skip_special_tokens=True)
+            if is_conversational(inputs[0]):
+                shuffled_completions = [[{"role": "assistant", "content": shuffled_completion}] for shuffled_completion in shuffled_completions]
+            #compute the rewards
+            shuffled_prompts = [prompt for prompt in prompts for _ in range(self.shuffled_num_generations)]
+            shuffled_rewards_per_func = torch.zeros(len(shuffled_prompts), len(self.reward_funcs), device=device)
+            for i, (reward_func, reward_processing_class) in enumerate(
+                zip(self.reward_funcs, self.reward_processing_classes)
+            ):   
+                # Repeat all input columns (but "prompt" and "completion") to match the number of generations
+                shuffled_reward_kwargs = {key: [] for key in inputs[0].keys() if key not in ["prompt", "completion"]}
+                for key in shuffled_reward_kwargs:
+                    for example in inputs:
+                        # Repeat each value in the column for `num_generations` times
+                        shuffled_reward_kwargs[key].extend([example[key]] * self.shuffled_num_generations)
+                shuffled_output_reward_func = reward_func(prompts=shuffled_prompts, completions=shuffled_completions, **shuffled_reward_kwargs)
+                shuffled_rewards_per_func[:, i] = torch.tensor(shuffled_output_reward_func, dtype=torch.float32, device=device)
+                
+                             
         # Decode the generated completions
         completions = self.processing_class.batch_decode(completion_ids, skip_special_tokens=True)
         if is_conversational(inputs[0]):
@@ -526,9 +597,43 @@ class Qwen2VLGRPOTrainer(Trainer):
                 output_reward_func = reward_func(prompts=prompts, completions=completions, **reward_kwargs)
                 rewards_per_func[:, i] = torch.tensor(output_reward_func, dtype=torch.float32, device=device)
 
+        
+        
+        if self.temporal and video_inputs:
+            temporal_rewards_per_func = rewards_per_func.clone()
+            
+            acc_mean = temporal_rewards_per_func[:,0].mean()
+            shuffled_acc_mean = shuffled_rewards_per_func[:,0].mean()
+            
+            if acc_mean >=0.8 * shuffled_acc_mean:
+                mask = temporal_rewards_per_func[:,0] >0.1
+                temporal_rewards_per_func[mask,0] = shuffled_rewards_per_func[mask,0] + 0.3
+                temporal_rewards = torch.tensor([1.0]).to('cuda')
+            else:
+                temporal_rewards = torch.tensor([0.0]).to('cuda')
+        else:
+            temporal_rewards =  torch.tensor([0.5]).to('cuda')
         # Sum the rewards from all reward functions
-        rewards = rewards_per_func.sum(dim=1)
+        # rewards = rewards_per_func.sum(dim=1)
+        if self.temporal and video_inputs:
+            rewards = temporal_rewards_per_func.sum(dim=1) 
+        else:
+            rewards = rewards_per_func.sum(dim=1)
 
+        
+        if self.len_control:
+            mem_rewards = [0] * self.num_generations
+            mask = rewards_per_func[:,0] > 0.1
+            length_list = completion_mask.sum(1)
+            selected_indices = torch.nonzero(mask,as_tuple=True)[0].tolist()
+            
+            if len(selected_indices) > 1:
+                for idx in selected_indices:
+                    if 320 <= length_list[idx] <= 512:
+                        mem_rewards[idx] +=0.2
+        print(rewards)
+        print(completion_mask.sum(1))
+                    
         # Compute grouped-wise rewards
         mean_grouped_rewards = rewards.view(-1, self.num_generations).mean(dim=1)
         std_grouped_rewards = rewards.view(-1, self.num_generations).std(dim=1)
@@ -555,6 +660,23 @@ class Qwen2VLGRPOTrainer(Trainer):
                 reward_func_name = reward_func.__name__
             self._metrics[f"rewards/{reward_func_name}"].append(reward_per_func[i].item())
 
+        gathered_rewards = self.accelerator.gather_for_metrics(rewards)
+        
+        num_devices = gathered_rewards.size(0) // self.num_generations
+        rewards_per_device = gathered_rewards.view(num_devices, self.num_generations)
+        wrong_devices = (rewards_per_device <= 1).all(dim=1)
+        wrong_ratio = wrong_devices.sum().item() / num_devices
+        
+        correct_devices = (rewards_per_device >= 2).all(dim=1)
+        correct_ratio = correct_devices.sum().item() / num_devices
+        
+        self._metrics["all_wrong"].append(wrong_ratio)
+        self._metrics["all_correct"].append(correct_ratio)
+        
+        if self.temporal:
+            temporal_rewards_list = self.accelerator.gather_for_metrics(temporal_rewards)
+            self._metrics["temporal_rewards"].append(self.accelerator.gather_for_metrics(temporal_rewards_list).mean().item())
+            
         self._metrics["reward"].append(self.accelerator.gather_for_metrics(rewards).mean().item())
 
         self._metrics["reward_std"].append(self.accelerator.gather_for_metrics(std_grouped_rewards).mean().item())

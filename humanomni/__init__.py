@@ -5,7 +5,7 @@ import shutil
 from functools import partial
 
 import torch
-
+import ipdb
 from .model import load_pretrained_model
 from .mm_utils import process_image, process_video, process_audio,tokenizer_multimodal_token, get_model_name_from_path, KeywordsStoppingCriteria,process_image_npary
 from .constants import NUM_FRAMES, DEFAULT_IMAGE_TOKEN, DEFAULT_VIDEO_TOKEN, MODAL_INDEX_MAP, DEFAULT_AUDIO_TOKEN
@@ -74,22 +74,23 @@ def mm_infer(image_or_video, instruct, model, tokenizer, audio=None, modal='vide
     # 1. vision preprocess (load & transform image or video).
 
     if modal == 'text' or modal == 'audio':
-        tensor = [(torch.zeros(32, 3, 384, 384).cuda().half(), "video")]
+        tensor = [(torch.zeros(32, 3, 384, 384).cuda().half(), "video")]            #[batch+_size,c,h,w];.half()表示转化为半精度浮点数，减少显存占用，()构建成一个元组，"video"类似于一个标签
     else:
-        if "video" in modal:
+        if "video" in modal:    
             vi_modal = "video"
         else:
             vi_modal = "image"
 
-        if isinstance(image_or_video, transformers.image_processing_base.BatchFeature):
+        if isinstance(image_or_video, transformers.image_processing_base.BatchFeature):     #判断Image_or_video是不是一个batchfeature的实例
             # 处理 BatchFeature 中的所有 tensor
+            ipdb.set_trace()
             processed_data = transformers.image_processing_base.BatchFeature({
-                'pixel_values_videos': image_or_video['pixel_values_videos'][0].half().cuda(),
+                'pixel_values_videos': image_or_video['pixel_values_videos'][0].half().cuda(),      #只保留处理后的第一个样本数据，因为batch>1
                 'video_grid_thw': image_or_video['video_grid_thw'][0].cuda()
             })
         else:
-            # 处理普通 tensor
-            processed_data = image_or_video.half().cuda()
+            # 处理普通 tensor   #没有batch的需求，也不用取[0]
+            processed_data = image_or_video.half().cuda()   
         tensor = [(processed_data, vi_modal)]
 
     
@@ -99,7 +100,7 @@ def mm_infer(image_or_video, instruct, model, tokenizer, audio=None, modal='vide
     # 2. text preprocess (tag process & generate prompt).
     if isinstance(instruct, str):
         message = [{'role': 'user', 'content': modal_token + '\n' + instruct}]
-    elif isinstance(instruct, list):
+    elif isinstance(instruct, list):        #instruct里面包含多个例子的内容，是个list
         message = copy.deepcopy(instruct)
         message[0]['content'] = modal_token + '\n' + message[0]['content']
     else:
