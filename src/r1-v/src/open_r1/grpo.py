@@ -211,9 +211,9 @@ def main(script_args, training_args, model_args):
     reward_funcs = [reward_funcs_registry[func] for func in script_args.reward_funcs]
 
     # Load the dataset
-    # json_file_path = "/data/data2/shiman/R1-Omni/data_json/rl.json"
-    # dataset = load_video_dataset(json_file_path)
-    dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
+    json_file_path = script_args.dataset_name
+    dataset = load_video_dataset(json_file_path)
+    # dataset = load_dataset(script_args.dataset_name, name=script_args.dataset_config)
     
     # Format into conversation
     def make_conversation(example):
