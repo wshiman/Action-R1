@@ -12,8 +12,10 @@ Unconstrained fall detection is crucial for real-world applications but remains 
 
 ## 🏆 Performance
 - Unconstrained fall detection comparison
+
 ![alt text](images/unconstrain_result.png)
 - Cross dataset comparison
+
 ![alt text](images/cross_result.png)
 
 
