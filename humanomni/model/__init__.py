@@ -44,7 +44,7 @@ def load_pretrained_model(model_path, model_base, model_name, load_8bit=False, l
     kwargs = {"device_map": device_map, **kwargs}
 
     if device != "cuda":
-        kwargs['device_map'] = {"": device}
+        kwargs['device_map'] = {"": device}     #空字符串，将整个模型部署到device设备上
 
     if load_8bit:
         kwargs['load_in_8bit'] = True

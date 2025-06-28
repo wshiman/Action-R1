@@ -1,10 +1,11 @@
 #!/bin/bash
-export CUDA_VISIBLE_DEVICES=7
+export CUDA_VISIBLE_DEVICES=5
 # Environment Variables
+echo "CUDA_VISIBLE_DEVICES: $CUDA_VISIBLE_DEVICES"
 ARG_WORLD_SIZE=${1:-1}
 ARG_NPROC_PER_NODE=${2:-1}
 ARG_MASTER_ADDR="127.0.0.1"
-ARG_MASTER_PORT=16666
+ARG_MASTER_PORT=16667
 ARG_RANK=0
 
 # Multiple conditions
@@ -32,7 +33,7 @@ export TRANSFORMERS_OFFLINE=1
 export WANDB_PROJECT=humanomniqwen2_siglip
 export HF_HOME=/data/data2/shiman/R1-Omni/hfhome/
 export HF_ENDPOINT=http://hf-mirror.com
-RUN_NAME=EMER_SFT
+RUN_NAME=dataplus_coldstart
 
 OUTP_DIR=work_dirs
 echo 'hello'
@@ -48,7 +49,7 @@ torchrun --nnodes $WORLD_SIZE \
     --vision_tower /data/data2/shiman/R1-Omni/siglip-224 \
     --mm_projector_type all_in_one_small \
     --mm_tunable_parts "mm_mlp_adapter,mm_language_model" \
-    --data_path   /data/data2/shiman/R1-Omni/data_json/cold_start.json \
+    --data_path   /data/data2/shiman/R1-Omni/cold_start/cold_start++_random_updated.json \
     --data_folder / \
     --mm_vision_select_layer -2 \
     --image_aspect_ratio pad \
@@ -57,7 +58,7 @@ torchrun --nnodes $WORLD_SIZE \
     --tf32 True \
     --fp16 False \
     --output_dir ${OUTP_DIR}/${WANDB_PROJECT}/finetune_${RUN_NAME} \
-    --num_train_epochs 5 \
+    --num_train_epochs 10 \
     --per_device_train_batch_size $LOCAL_BATCH_SIZE \
     --per_device_eval_batch_size 4 \
     --gradient_accumulation_steps $GRADIENT_ACCUMULATION_STEPS \

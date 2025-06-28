@@ -46,27 +46,34 @@ class SFDynamicCompressor(nn.Module):
     def downsample_4(self, x):
         return F.avg_pool2d(x, 4, 4)
         
-    def forward(self, image_features, image_size=None):
+    def forward(self, image_features, image_size=None):     #slow fast feature compressor
+        # 接受来自siglip 提取的image feature，进行压缩处理；image feature shape为bs,num_tokens,hidden_size  这里的image num tokens=image patch num , 1 个patch就是一个token
         if image_size is None:
-            W = int(math.sqrt(image_features.shape[1]))
+            W = int(math.sqrt(image_features.shape[1])) #通过对token_num处理得到patch数量，长宽方向各有多少个patch，W*H就是总patch数量
+            #因为image_features.shape[1]可能包含cls token，所以这里取整
             H = int(W)
         else:
             H, W = image_size
-        image_features = einops.rearrange(image_features, 't (r w) h -> t r w h', r = H)
-        T, H, W, C = image_features.shape
-        image_features = image_features.unsqueeze(0)
+        #把 image_features reshape 成一个空间特征图 (feature map)，让llm也能理解空间信息，直接将Image feature和text embedding concat是简单的early fusion，llm捕获不到空间信息，而reshape之后可以进行cross attn，更深程度的融合
+        image_features = einops.rearrange(image_features, 't (r w) h -> t r w h', r = H)    #高级的重排tensor方法，指定r=H;这里的t,r,w,h只是字母，没有特别含义
+        T, H, W, C = image_features.shape   #T表示时间轴上的图片数量
+        image_features = image_features.unsqueeze(0)    #在第0维添加1，-batchsize
         B = 1
-        fast_feature = F.avg_pool2d(image_features.permute(0, 1, 4, 2, 3).view(B*T, C, H, W), 2, 2) # B * T, C, H // 2, W //2 
+        # B,T,H,W,C
+        fast_feature = F.avg_pool2d(image_features.permute(0, 1, 4, 2, 3).view(B*T, C, H, W), 2, 2) # B * T, C, H // 2, W //2   #只对空间尺寸做池化
         fast_feature = fast_feature.view(B*T, C, -1)
-        fast_feature = fast_feature.permute(0, 2, 1).view(B, T, -1, C).view(B, -1, C)
-        
+        fast_feature = fast_feature.permute(0, 2, 1).view(B, T, -1, C).view(B, -1, C)   #T*H*W//4,得到的是多帧的feature
+        #fast_feature高频率低分辨率（做了下采样avgpool）
         index = torch.arange(1, T, 4)
         if len(index) == 0:
-            index = torch.tensor([0])
-        slow_feature = image_features[:, index, :, :, :].view(B, -1, C)
-
-        final_feature = torch.cat([fast_feature, slow_feature], dim=1)  
+            index = torch.tensor([0])   #保证至少有一帧
+        #index是在时间轴维度抽帧
+        slow_feature = image_features[:, index, :, :, :].view(B, -1, C) #[bs,-1,c], slow feature未经压缩
+        #slow_feature低频率高分辨率
+        final_feature = torch.cat([fast_feature, slow_feature], dim=1)  #dim=1，在num_tokens维度拼接，最后是batchsize，num_tokens, hidden_size
         return final_feature
+# 先有局部空间感知（做池化），再统一成序列（融合空间+时间维度），最终喂给后面的模型（比如LLM）
+# 所以中间部分有reshape成空间特征图进行池化的操作，B*T,C,H,W -> B*T,C,H//2,W//2；但是video视频处理，还是将多帧特征拼接成一个序列
 
 
 class HumanOmniMetaModel:
@@ -83,11 +90,11 @@ class HumanOmniMetaModel:
         bert_model = "/data/data2/shiman/R1-Omni/bert-base-uncased"
         self.bert_model =  BertModel.from_pretrained(bert_model)
         self.bert_tokenizer = BertTokenizer.from_pretrained(bert_model)
-        modules = [nn.Linear(self.bert_model.config.hidden_size, 3584)]
+        modules = [nn.Linear(self.bert_model.config.hidden_size, 3584)]     #bs,seq_len,hidden_size  seq_len=num_tokens；一个句子被分成了几个token
         modules.append(nn.GELU())
         modules.append(nn.Linear(3584, num_branches))
-        self.bert_gate = nn.Sequential(*modules)
-        self.bert_softmax = nn.Softmax(dim=1)
+        self.bert_gate = nn.Sequential(*modules)    #上，激活，下
+        self.bert_softmax = nn.Softmax(dim=1)       #三个分支，softmax后得权重分布
        # self.feature_compressor = SFDynamicCompressor(config, self.vision_tower)
         #####
         
@@ -117,7 +124,7 @@ class HumanOmniMetaModel:
         if self.get_vision_tower() is None:
             vision_tower = build_vision_tower(model_args)
 
-            if fsdp is not None and len(fsdp) > 0:
+            if fsdp is not None and len(fsdp) > 0:      # Fully Sharded Data Parallel，高效分布式训练
                 self.vision_tower = [vision_tower]
             else:
                 self.vision_tower = vision_tower
@@ -234,19 +241,19 @@ class HumanOmniMetaForCausalLM(ABC):
     def get_audio_tower(self):
         return self.get_model().get_audio_tower()
 
-    def get_2dPool(self, image_feature, stride=2):
+    def get_2dPool(self, image_feature, stride=2):      #进行下采样操作，减少空间维度
         height = width = self.get_vision_tower().num_patches_per_side
         num_frames, num_tokens, num_dim = image_feature.shape
-        image_feature = image_feature.view(num_frames, height, width, -1)
-        image_feature = image_feature.permute(0, 3, 1, 2).contiguous()
+        image_feature = image_feature.view(num_frames, height, width, -1)   #将num_tokens拆分
+        image_feature = image_feature.permute(0, 3, 1, 2).contiguous()      #确保连续，可以在空间中进行张量操作 num_frames, num_dim, height, width
 
-        height, weight = image_feature.shape[2:]
+        height, weight = image_feature.shape[2:]    #确认h，w
         scaled_shape = [math.ceil(height / stride), math.ceil(weight / stride)]
         image_feature = nn.functional.interpolate(image_feature, size=scaled_shape, mode='bilinear')
 
         image_feature = image_feature.permute(0, 2, 3, 1)
         image_feature = image_feature.view(num_frames, -1, num_dim)
-        return image_feature
+        return image_feature    #最后又变成num_frames, num_tokens, num_dim的形状
 
     def encode_images_or_videos(self, images, device=None,prompts=None):
 
@@ -282,23 +289,23 @@ class HumanOmniMetaForCausalLM(ABC):
             data_batch.append(data)
 
             
-        batch_size = len(data_batch)
-        split_sizes = [image.shape[0] for image in data_batch]
-        frames = torch.cat([image for image in data_batch], dim=0)
+        batch_size = len(data_batch)        #[ tensor(num_frames, C, H, W), tensor(num_frames, C, H, W), ... ]
+        split_sizes = [images.shape[0] for images in data_batch]  #每个video的帧数
+        frames = torch.cat([images for images in data_batch], dim=0)    # total frames,C,H,W
         # ddd
-        frames_features = self.get_model().get_vision_tower()(frames)
-        video_features = einops.rearrange(frames_features, '(b t) n h -> b t n h', b = batch_size)
+        frames_features = self.get_model().get_vision_tower()(frames)       #total frames,num_tokens,hidden_size
+        video_features = einops.rearrange(frames_features, '(b t) n h -> b t n h', b = batch_size)      #einops方法, video feature 具有时间信息
         body_features = video_features       
-        face_features = frames_features         
+        face_features = frames_features         #无时间维度，(bt)
         video_features, body_features, face_features = self.get_model().mm_projector(video_features, body_features, face_features)
-        face_features = einops.rearrange(face_features, '(b t) n h -> b t n h', b = batch_size)
+        face_features = einops.rearrange(face_features, '(b t) n h -> b t n h', b = batch_size) #使脸部特征也具有时间维度(b,t),为了方便concat而reshape
         
         inputs_bert = prompts
         # Get BERT features
         outputs_bert = self.get_model().bert_model(**inputs_bert)
         last_hidden_state_bert = outputs_bert.last_hidden_state
         # Use [CLS] token representation
-        cls_token_embedding_bert = last_hidden_state_bert[:, 0, :]
+        cls_token_embedding_bert = last_hidden_state_bert[:, 0, :]      #cls token位于第一个
         # Calculate branch probabilities
         logits = self.get_model().bert_gate(cls_token_embedding_bert)
         branch_probs = self.get_model().bert_softmax(logits)

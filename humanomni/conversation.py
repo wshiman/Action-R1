@@ -166,7 +166,7 @@ class Conversation:
         for i, (role, msg) in enumerate(self.messages[self.offset:]):
             if i % 2 == 0:
                 if type(msg) is tuple:
-                    from decord import VideoReader, cpu
+                    from decord import VideoReader, cpu,gpu
                     import numpy as np
                     # here video is the file path of input video
                     msg, video, image_process_mode = msg
@@ -176,6 +176,8 @@ class Conversation:
                     else:
                         # read video using decord.VideoReader
                         decord_vr = VideoReader(uri=video, ctx=cpu(0))
+                        #NOTE:cpu is too slow, use gpu(0) instead
+                        # decord_vr = VideoReader(uri=video, ctx=gpu(0))
                         duration = len(decord_vr)
                         frame_id_list = np.linspace(0, duration-1, NUM_FRAMES, dtype=int)
                         # convert the extracted image frames into PIL objects

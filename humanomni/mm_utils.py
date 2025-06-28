@@ -10,7 +10,7 @@ import torch
 import imageio
 import numpy as np
 from PIL import Image
-from decord import VideoReader, cpu, AudioReader
+from decord import VideoReader, cpu, AudioReader,gpu
 from moviepy.editor import VideoFileClip
 from transformers import StoppingCriteria
 import random
@@ -370,6 +370,8 @@ def process_video(video_path, processor, s=None, e=None, aspect_ratio='pad', num
             num_frames_of_video = len(gif_reader)
         else:
             vreader = VideoReader(video_path, ctx=cpu(0), num_threads=1)
+            #NOTE:cpu is too slow,use gpu instead
+            # vreader = VideoReader(video_path, ctx=gpu(0), num_threads=1)
 
             fps = vreader.get_avg_fps()
             num_frames_of_video = len(vreader)
@@ -442,6 +444,7 @@ def process_video_qwen(video_path, processor, s=None, e=None, aspect_ratio='pad'
             num_frames_of_video = len(gif_reader)
         else:
             vreader = VideoReader(video_path, ctx=cpu(0), num_threads=1)
+            # vreader = VideoReader(video_path, ctx=gpu(0), num_threads=1)
             fps = vreader.get_avg_fps()
             num_frames_of_video = len(vreader)
 

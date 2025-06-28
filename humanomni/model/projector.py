@@ -212,7 +212,7 @@ class PllavaMultiModalProjector(nn.Module):
         """
         if split_sizes is not None:
             # 处理混合输入（图片和视频）
-            x = torch.split(x, split_sizes)
+            x = torch.split(x, split_sizes) #split_size 为每个video的帧数，torch.split会按照spilt_size进行分割
             features = []
             for idx, feat in enumerate(x):
                 if feat.shape[0] == 1:  # 图片输入

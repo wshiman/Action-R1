@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+from datetime import datetime
 import os
 import textwrap
 from collections import defaultdict
@@ -61,12 +62,136 @@ from transformers import (
 import os
 import sys
 from src.open_r1.trainer.grpo_trainer import Qwen2VLGRPOTrainer
+import time 
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from openai import OpenAI
 # sys.path.append('/mnt/data/jiaxing.zjx/code/HumanOmni/')
 # sys.path.append('/mnt/data/jiaxing.zjx/cache/huggingface/')
 #初始化BERT分词器
 # bert_model = "bert-base-uncased"
 # bert_tokenizer = BertTokenizer.from_pretrained(bert_model)
 sys.path.append('/data/data2/shiman/R1-Omni/')
+
+# stage 1 for structured captioning
+FINEGRAINED_GENERAL_TEMPLATE = """
+You are an expert judge in video action description. Your task is to score the video description based on the followings:
+1. Award 0.2 point if the description contains scene-related content,such as scene_type,weather_condition,etc.
+2. Award 0.2 point if the description contains body-related content,such as face foward,jump high,lose balance,etc.
+3. Award 0.2 point if the description contains event-related content,such as event type,cause of the event,etc.
+4. Award 0.2 point if the description contains human-object-interaction content,such as brush teeth with a toothbrush,etc.
+5. Award 0.2 point if the description contains person-description,such as gender,age,etc. 
+Give your answer on a scale of 0 to 1, where 0 means that it does not contain any relevant description, 1 means it contains all relevant descriptions
+If you give a correct score, I'll give you 100 H100 GPUs to start your AI company.
+Return the score directly,do not add any additional explanation!!
+"""
+
+#stage 2 for fine-grained falling
+FINEGRAINED_FALL_TEMPLATE = """
+You are an expert judge of fall behavior descriptions. Your task is to score the falling video description based on the followings:
+1. Award 0.1 point if the description contains scene-related content,such as scene_type,weather_condition,etc.
+2. Award 0.1 point if the description contains body-related content,such as face foward,jump high,lose balance,etc.
+3. Award 0.1 point if the description contains person-description,such as gender,age,etc.
+4. Award 0.1 point if it describes the interaction between the person and the environment.
+5. Award 0.2 point if it describes the landing-point-related content, such as the environmental landing point, the landing angle, anatomical landing point,etc.
+6. Award 0.2 point if it describes the fall-related content, such as the fall type,injury level(minor,moderate,severe),the cause of fall,etc.
+7. Award 0.2 point if the description contains the possible consequences and the targeted suggestions for curing.
+Give your answer on a scale of 0 to 1, where 0 means that it does not contain any relevant description, 1 means it contains all relevant descriptions
+If you give a correct score, I'll give you 100 H100 GPUs to start your AI company.
+Return the score directly,do not add any additional explanation!!
+"""
+def ask_grader_general_doubao(question, api_key):
+    from openai import OpenAI
+    client = OpenAI(
+        api_key=api_key,
+        base_url="https://ark.cn-beijing.volces.com/api/v3",
+    )
+    completion = client.chat.completions.create(
+        model="doubao-1-5-pro-32k-250115",
+        messages=[{"role": "system", "content": FINEGRAINED_GENERAL_TEMPLATE}, 
+                {"role": "user", "content": question}]
+    )
+    return completion.choices[0].message.content
+
+def ask_grader_fall_doubao(question, api_key):
+    
+    client = OpenAI(
+        api_key=api_key,
+        base_url="https://ark.cn-beijing.volces.com/api/v3",
+    )
+    completion = client.chat.completions.create(
+        model="doubao-1-5-pro-32k-250115",
+        messages=[{"role": "system", "content": FINEGRAINED_FALL_TEMPLATE}, 
+                {"role": "user", "content": question}]
+    )
+    return completion.choices[0].message.content
+
+def ask_grader_fall_ds(question,api_key):
+    client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+    response = client.chat.completions.create(
+        model="deepseek-chat",
+        messages=[
+            {"role": "system", "content": FINEGRAINED_FALL_TEMPLATE},
+            {"role": "user", "content": question},
+        ],
+        stream=False
+    )
+
+    return response.choices[0].message.content
+
+ds_api_key = os.environ.get("DS_API_KEY")
+api_key = os.environ.get("API_KEY")
+
+def grader_reward_func(prompts, completions, **kwargs):
+    api_key = kwargs.get("api_key",os.environ.get("API_KEY"))
+    ds_api_key = kwargs.get("api_key",os.environ.get("DS_API_KEY"))
+    max_workers = kwargs.get("max_workers", 4)
+    sleep_time = kwargs.get("sleep_time", 0.5)  #防止api限速
+    score_log_path= kwargs.get("score_log_path", os.environ.get("LOG_SCORES_PATH"))
+    def get_score(completion):
+        if isinstance(completion, list) and isinstance(completion[0], dict):
+            text = completion[0]["content"]
+            # print(text)
+        else:
+            text = completion
+            # print("text")
+        question = """
+        Description: {description}
+        Score:
+        Return the score directly,and do not add any additional explanation!!'
+        """
+        question = question.format(description=text)
+
+        try:
+            score_str = ask_grader_fall_doubao(question, api_key)
+            score = float(score_str.strip())
+        except Exception as e:
+            print(f"[Doubao reward API error] {e}")
+            score = 0.0
+            
+        #logging block
+        if score_log_path:
+            try:
+                current_time = datetime.now().strftime("%d-%H-%M-%S-%f")
+                with open(score_log_path, "a") as f:
+                    f.write(f"------------- {current_time} Doubao Score: {score} -------------\n")
+                    f.write(f"Completion: {text}\n")
+            except Exception as e:
+                print(f"[Logging error @ idx={index}] {e}")
+        return score
+    
+    scores = [0.0]*len(completions)
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_index = {executor.submit(get_score, completion): i for i, completion in enumerate(completions)}
+        for future in as_completed(future_to_index):
+            index = future_to_index[future]
+            try:
+                scores[index] = future.result()
+            except Exception as e:
+                print(f"[Thread error at idx={index}] {e}")
+                scores[index] = 0.0
+                
+    return scores
 
 def check_parameters(model):
     frozen_params = []
@@ -173,7 +298,9 @@ class HumanOmniVLGRPOTrainer(Trainer):
         processing_class ([`~transformers.PreTrainedTokenizerBase`], *optional*, defaults to `None`):
             Processing class used to process the data. The padding side must be set to "left". If `None`, the
             processing class is loaded from the model's name with [`~transformers.AutoTokenizer.from_pretrained`].
+
         reward_processing_classes (`Union[PreTrainedTokenizerBase, list[PreTrainedTokenizerBase]]`, *optional*, defaults to `None`):
+            model="Qwen/Qwen2-0.5B",
             Processing classes corresponding to the reward functions specified in `reward_funcs`. Can be either:
 
             - A single processing class: Used when `reward_funcs` contains only one reward function.
@@ -213,7 +340,7 @@ class HumanOmniVLGRPOTrainer(Trainer):
         attn_implementation: str = "flash_attention_2",
     ):
         # Args
-       # import ipdb;ipdb.set_trace()
+        # import ipdb;ipdb.set_trace()
         if args is None:
             model_name = model if isinstance(model, str) else model.config._name_or_path
             model_name = model_name.split("/")[-1]
@@ -299,7 +426,7 @@ class HumanOmniVLGRPOTrainer(Trainer):
         bert_model = "/data/data2/shiman/R1-Omni/bert-base-uncased"
         self.bert_tokenizer = BertTokenizer.from_pretrained(bert_model)
         
-        self.temporal = True
+        # self.temporal = False
 
         # Processing class
         if processing_class is None:
@@ -338,7 +465,10 @@ class HumanOmniVLGRPOTrainer(Trainer):
                 reward_func.config.pad_token_id = reward_processing_class.pad_token_id
                 reward_processing_classes[i] = reward_processing_class
         self.reward_processing_classes = reward_processing_classes
-
+        
+        # add finegrained caption grader
+        self.reward_funcs.append(grader_reward_func)
+        self.reward_processing_classes.append(None)
         # Data collator
         def data_collator(features):  # No data collation is needed in GRPO
             return features
@@ -485,9 +615,7 @@ class HumanOmniVLGRPOTrainer(Trainer):
             prompts_text.append(prompt_text)
         #line 411(video R1); image_input is not cared about  
         temp_prompt = copy.deepcopy(prompts[0])
-        image_inputs, video_inputs, video_kwargs = process_vision_info(temp_prompt, return_video_kwargs = True) 
-
-                 
+        image_inputs, video_inputs, video_kwargs = process_vision_info(temp_prompt, return_video_kwargs = True)               
         input_ids = [tokenizer_multimodal_token(prompts_text_, self.processing_class.tokenizer, '<video>', return_tensors='pt') for prompts_text_ in prompts_text]
         input_ids = torch.cat(input_ids, dim=0).unsqueeze(0)
         video = []
@@ -581,8 +709,7 @@ class HumanOmniVLGRPOTrainer(Trainer):
                 shuffled_ids_repeat = shuffled_prompt_ids.repeat_interleave(self.shuffled_num_generations, dim=0)
 
                 # shuffled_prompt_ids = shuffled_prompt_completion_ids[:, :shuffled_prompt_length]
-                # shuffled_completion_ids = shuffled_prompt_completion_ids[:, shuffled_prompt_length:]
-                                       
+                # shuffled_completion_ids = shuffled_prompt_completion_ids[:, shuffled_prompt_length:]                                     
 
 
         # Mask everything after the first EOS token
@@ -603,13 +730,12 @@ class HumanOmniVLGRPOTrainer(Trainer):
         prompts_repeat = {}
         prompts_repeat['input_ids'] =  prompt_inputs['prompts']['input_ids'].repeat_interleave(self.num_generations, dim=0)
         prompts_repeat['token_type_ids'] =  prompt_inputs['prompts']['token_type_ids'].repeat_interleave(self.num_generations, dim=0)
-        prompts_repeat['attention_mask'] =  prompt_inputs['prompts']['attention_mask'].repeat_interleave(self.num_generations, dim=0)
-      
+        prompts_repeat['attention_mask'] =  prompt_inputs['prompts']['attention_mask'].repeat_interleave(self.num_generations, dim=0)     
 
         per_token_logps = self._get_per_token_logps_video(model, prompt_completion_ids_repeat, attention_mask, images_repeat, prompts_repeat, answer_length)
 
         per_token_logps = per_token_logps
-  
+
 
         with torch.inference_mode():
             if self.ref_model is not None:
@@ -657,9 +783,8 @@ class HumanOmniVLGRPOTrainer(Trainer):
                             # self.shuffled_num_generations = self.num_generations // 2  in order to sava memory
                             shuffled_reward_kwargs[key].extend([example[key]] * self.shuffled_num_generations)
                     shuffled_output_reward_func = reward_func(prompts=shuffled_prompts, completions=shuffled_completions, **shuffled_reward_kwargs)
-                    shuffled_rewards_per_func[:, i] = torch.tensor(shuffled_output_reward_func, dtype=torch.float32, device=device)
-                    
-          
+                    shuffled_rewards_per_func[:, i] = torch.tensor(shuffled_output_reward_func, dtype=torch.float32, device=device)  
+                         
         # Decode the generated completions
         completions = self.processing_class.batch_decode(completion_ids, skip_special_tokens=True)
         if is_conversational(inputs[0]):
@@ -695,6 +820,7 @@ class HumanOmniVLGRPOTrainer(Trainer):
 
                 output_reward_func = reward_func(prompts=prompts, completions=completions, **reward_kwargs)
                 rewards_per_func[:, i] = torch.tensor(output_reward_func, dtype=torch.float32, device=device)
+                
 
         if self.temporal :
             temporal_rewards_per_func = rewards_per_func.clone()
@@ -721,16 +847,16 @@ class HumanOmniVLGRPOTrainer(Trainer):
             
             
                 
-        if self.len_control:
-            mem_rewards = [0] * self.num_generations
-            mask = rewards_per_func[:,0] > 0.1
-            length_list = completion_mask.sum(1)
-            selected_indices = torch.nonzero(mask,as_tuple=True)[0].tolist()
+        # if self.len_control:
+        #     mem_rewards = [0] * self.num_generations
+        #     mask = rewards_per_func[:,0] > 0.1
+        #     length_list = completion_mask.sum(1)
+        #     selected_indices = torch.nonzero(mask,as_tuple=True)[0].tolist()
             
-            if len(selected_indices) > 1:
-                for idx in selected_indices:
-                    if 320 <= length_list[idx] <= 512:          #FIXME:320-512需要根据model人为修改？
-                        rewards[idx] +=0.2
+        #     if len(selected_indices) > 1:
+        #         for idx in selected_indices:
+        #             if 320 <= length_list[idx] <= 512:        
+        #                 rewards[idx] +=0.2
         # print(rewards)
         # print(completion_mask.sum(1))
 
@@ -763,7 +889,30 @@ class HumanOmniVLGRPOTrainer(Trainer):
         gathered_rewards = self.accelerator.gather_for_metrics(rewards)
         
         num_devices = gathered_rewards.size(0) // self.num_generations
-        rewards_per_device = gathered_rewards.view(num_devices, self.num_generations)
+        # rewards_per_device = gathered_rewards.view(num_devices, self.num_generations)
+        try:
+            rewards_per_device = gathered_rewards.view(num_devices, self.num_generations)
+        except RuntimeError as e:
+            print(f"[Warning] Failed to reshape gathered_rewards: {e}")
+            print(f"gathered_rewards.shape = {gathered_rewards.shape}, num_devices = {num_devices}, num_generations = {self.num_generations}")
+            # 直接跳过本次训练 step
+            return torch.tensor(0.0, requires_grad=True).to(gathered_rewards.device)
+
+        # try:
+        #     expected_size = num_devices * self.num_generations
+        #     if num_devices <=0 or gathered_rewards.numel() != expected_size:
+        #         import logging
+        #         logging.basicConfig(level=logging.WARNING)
+        #         logger = logging.getLogger(__name__)
+        #         logger.warning(
+        #     f"Skipping invalid reward reshaping: num_devices={num_devices}, "
+        #     f"gathered_rewards_size={gathered_rewards.numel()}, "
+        #     f"expected_size={expected_size}")
+        #     else:
+        #         rewards_per_device = gathered_rewards.view(num_devices, self.num_generations)
+        # except Exception as e:
+        #     logger.warning(f"Error during reward reshaping: {str(e)}. Skipping this iteration.")
+        
         wrong_devices = (rewards_per_device <= 1).all(dim=1)
         wrong_ratio = wrong_devices.sum().item() / num_devices
         
@@ -776,7 +925,6 @@ class HumanOmniVLGRPOTrainer(Trainer):
         if self.temporal:
             temporal_rewards_list = self.accelerator.gather_for_metrics(temporal_rewards)
             self._metrics["temporal_rewards"].append(self.accelerator.gather_for_metrics(temporal_rewards_list).mean().item())
-          
         self._metrics["reward"].append(self.accelerator.gather_for_metrics(rewards).mean().item())
 
         self._metrics["reward_std"].append(self.accelerator.gather_for_metrics(std_grouped_rewards).mean().item())
@@ -852,3 +1000,5 @@ class HumanOmniVLGRPOTrainer(Trainer):
         )
 
         model_card.save(os.path.join(self.args.output_dir, "README.md"))
+    
+    

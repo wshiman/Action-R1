@@ -91,7 +91,7 @@ def find_all_linear_names(model):
 
 
 def safe_save_model_for_hf_trainer(trainer: Trainer,
-                                   output_dir: str):
+                                output_dir: str):
     """Collects the state dict and dump to disk."""
 
     if hasattr(trainer.args, "tune_mm_mlp_adapter") and trainer.args.tune_mm_mlp_adapter:

@@ -13,6 +13,7 @@
 # limitations under the License.
 import logging
 import os
+import pathlib
 import re
 import json
 from datetime import datetime
@@ -26,6 +27,12 @@ from math_verify import parse, verify
 from open_r1.trainer import Qwen2VLGRPOTrainer, Qwen2VLGRPOVLLMTrainer, HumanOmniVLGRPOTrainer
 from trl import GRPOConfig, GRPOTrainer, ModelConfig, ScriptArguments, TrlParser, get_peft_config
 from openai import OpenAI
+
+
+import os
+import re
+from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 @dataclass
 class GRPOScriptArguments(ScriptArguments):
@@ -57,89 +64,113 @@ class GRPOScriptArguments(ScriptArguments):
         default=True,
         metadata={"help": "whether using length reward"},
     )
+# deepseek api
+# def ask_api(question,api_key):
+#     client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
 
-def ask_api(question,api_key):
-    client = OpenAI(api_key=api_key, base_url="https://api.deepseek.com")
+#     response = client.chat.completions.create(
+#         model="deepseek-chat",
+#         messages=[
+#             {"role": "system", "content": "You are a helpful assistant"},
+#             {"role": "user", "content": question},
+#         ],
+#         stream=False
+#     )
 
-    response = client.chat.completions.create(
-        model="deepseek-chat",
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant"},
-            {"role": "user", "content": question},
-        ],
-        stream=False
+#     return response.choices[0].message.content
+
+# doubao api
+def ask_api_doubao(question, api_key):
+    client = OpenAI(
+    api_key=api_key,
+    base_url="https://ark.cn-beijing.volces.com/api/v3",
     )
+    completion = client.chat.completions.create(
+        model="doubao-1-5-pro-32k-250115",
+        messages=[
+            {"role": "user", "content": question},
+        ]
+    )
+    return completion.choices[0].message.content
 
-    return response.choices[0].message.content
 
-api_key='sk-faa9b1c39b6f4f2aae2c0208c26eb421'
+api_key = os.getenv("API_KEY")  
+
+def call_synonym_api(ground_truth, student_answer):
+    question = f"Whether {ground_truth} and {student_answer} have the similar meaning or express the similar action, you only have to answer yes or no"
+    return ask_api_doubao(question=question, api_key=api_key).strip().lower()
+
+def process_remaining(item):
+    video, content, sol = item
+    reward = 0.0
+    try:
+        # 提取answer标签内的内容
+        sol_match = re.search(r'<answer>(.*?)</answer>', sol)
+        ground_truth = sol_match.group(1).strip() if sol_match else sol.strip()
+
+        content_match = re.search(r'<answer>(.*?)</answer>', content)
+        student_answer = content_match.group(1).strip() if content_match else content.strip()
+
+        # 调用api匹配
+        if student_answer == ground_truth:
+            reward = 1.0
+        else:
+            if call_synonym_api(ground_truth, student_answer) == "yes":
+                reward = 1.0
+    except Exception as e:
+        print(f"Error in matching/synonym checking: {e}")
+
+    if os.getenv("DEBUG_MODE") == "true":
+        log_path = os.getenv("LOG_PATH")
+        current_time = datetime.now().strftime("%d-%H-%M-%S-%f")
+        with open(log_path, "a") as f:
+            f.write(f"------------- {current_time} Accuracy reward: {reward} -------------\n")
+            f.write(f"Video: {video}\n")
+            f.write(f"Content: {content}\n")
+            f.write(f"Solution: {sol}\n")
+    return reward
+
 
 def accuracy_reward(completions, solution, **kwargs):
-    """Reward function that checks if the completion is correct using either symbolic verification or exact string matching."""
+    pattern = r"<think>.*?</think>\s*<answer>.*?</answer>"
     contents = [completion[0]["content"] for completion in completions]
-    rewards = []
     videos = kwargs.get("video", "")
-    current_time = datetime.now().strftime("%d-%H-%M-%S-%f")
-    for video, content, sol in zip(videos, contents, solution):
+    
+    rewards = []
+    remaining_items = []
+    pre_rewards = []
+
+    for idx, (video, content, sol) in enumerate(zip(videos, contents, solution)):
+        # 如果格式不匹配，直接给 reward -1.0
+        if not re.fullmatch(pattern, content, re.DOTALL):
+            rewards.append(-1.0)
+            continue
+        
+        # 尝试通过 parse 和 verify 判断
         reward = 0.0
-        # Try symbolic verification first
-        #symbolic verification主要用于对mathmatical问题的验证，这里parse和verify是math_verify库中的函数
         try:
             answer = parse(content)
             if float(verify(answer, parse(sol))) > 0:
                 reward = 1.0
         except Exception:
-            pass  # Continue to next verification method if this fails
+            pass
 
-        # If symbolic verification failed, try string matching
-        # 进行字符串匹配
-        if reward == 0.0:
-            try:
-                # Extract answer from solution if it has think/answer tags
-                sol_match = re.search(r'<answer>(.*?)</answer>', sol)
-                ground_truth = sol_match.group(1).strip() if sol_match else sol.strip()
-                
-                # Extract answer from content if it has think/answer tags
-                content_match = re.search(r'<answer>(.*?)</answer>', content)
-                student_answer = content_match.group(1).strip() if content_match else content.strip()
-                
-                # Compare the extracted answers
-                if student_answer == ground_truth:
-                    reward = 1.0
-            except Exception:
-                pass  # Keep reward as 0.0 if both methods fail
-        #NOTE: 字符串匹配匹配会出错，在action recognition中,label和answer并不一定完全相同，可能是近义词，采用过一层api来进行同义词匹配        
-        if reward == 0.0:
-            try:
-                # Extract answer from solution if it has think/answer tags
-                sol_match = re.search(r'<answer>(.*?)</answer>', sol)
-                ground_truth = sol_match.group(1).strip() if sol_match else sol.strip()
-                
-                # Extract answer from content if it has think/answer tags
-                content_match = re.search(r'<answer>(.*?)</answer>', content)
-                student_answer = content_match.group(1).strip() if content_match else content.strip()
-                
-                #调用api来判断ground truth和student_answer是否为近义词
-                question = f"Whether {ground_truth} and {student_answer} have the similar meaning or express the similar action, you only have to answer yes or no"
-                flag = ask_api(question=question,api_key=api_key)
-                if flag.strip().lower() == "yes":
-                    reward = 1.0
-                else:
-                    reward = 0.0
-            except Exception:
-                pass    # If all methods fail, reward remains 0.0
-            
-                    
-        rewards.append(reward)
-        if os.getenv("DEBUG_MODE") == "true":
-            log_path = os.getenv("LOG_PATH")
-            # local_rank = int(os.getenv("LOCAL_RANK", 0))
-            with open(log_path, "a") as f:
-                f.write(f"------------- {current_time} Accuracy reward: {reward} -------------\n")
-                f.write(f"Video: {video}\n")
-                f.write(f"Content: {content}\n")
-                f.write(f"Solution: {sol}\n")
+        if reward == 1.0:
+            rewards.append(1.0)
+        else:
+            rewards.append(None)
+            remaining_items.append((idx, (video, content, sol)))  # 保留索引用于之后填回
+
+    # 对需要进一步判断的项调用 process_remaining
+    if remaining_items:
+        with ThreadPoolExecutor(max_workers=8) as executor:
+            results = list(executor.map(lambda item: process_remaining(item[1]), remaining_items))
+        for (idx, _), r in zip(remaining_items, results):
+            rewards[idx] = r
+
     return rewards
+
+    # return 0  # delete the accuracy reward function
 
 
 def format_reward(completions, **kwargs):
@@ -189,7 +220,7 @@ def load_video_dataset(json_path):
         problem = None  # 初始化问题变量
         for conversation in entry['conversations']:
             if conversation['from'] == 'human':
-              #  problem = conversation['value'].replace('<video>\n<audio>\n', '')
+            #  problem = conversation['value'].replace('<video>\n<audio>\n', '')
                 problem = "As an action recognition expert; throughout the video, which action conveyed by the characters is the most obvious to you?"
 
             elif conversation['from'] == 'gpt' and problem is not None:
@@ -288,7 +319,7 @@ def main(script_args, training_args, model_args):
         dataset = dataset.remove_columns("messages")
 
     
-   # trainer_cls = Qwen2VLGRPOTrainer if not training_args.use_vllm else Qwen2VLGRPOVLLMTrainer
+# trainer_cls = Qwen2VLGRPOTrainer if not training_args.use_vllm else Qwen2VLGRPOVLLMTrainer
     trainer_cls = HumanOmniVLGRPOTrainer
     print("using: ", trainer_cls)
 
@@ -307,8 +338,25 @@ def main(script_args, training_args, model_args):
     )
 
     # Train and push the model to the Hub
-    trainer.train()
+    # trainer.train()
+    # checkpoint_path = "/data/data2/shiman/R1-Omni/src/r1-v/outputs/checkpoint_grpoinit"
 
+    # if os.path.exists(checkpoint_path):
+    #     print(f"Resuming training from checkpoint at {checkpoint_path}")
+    #     trainer.train(resume_from_checkpoint=checkpoint_path)
+    # else:
+    #     print("Starting training from scratch")
+    #     trainer.train()
+    if list(pathlib.Path(training_args.output_dir).glob("checkpoint-*")):
+        print(f"Resuming training from checkpoint at {training_args.output_dir}")
+        trainer.train(resume_from_checkpoint=True)
+    else:
+        print("Starting training from scratch")
+        trainer.train()
+
+    
+    
+    
     # Save and push to hub
     trainer.save_model(training_args.output_dir)
     if training_args.push_to_hub:

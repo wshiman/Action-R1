@@ -26,18 +26,18 @@ class CLIPVisionTower(nn.Module):
             self.cfg_only = CLIPVisionConfig.from_pretrained(self.vision_tower_name)
 
     def load_model(self):
-        self.image_processor = CLIPImageProcessor.from_pretrained(self.vision_tower_name)
+        self.image_processor = CLIPImageProcessor.from_pretrained(self.vision_tower_name)   #image processor , provide image tensor
 
-        self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name)
+        self.vision_tower = CLIPVisionModel.from_pretrained(self.vision_tower_name) #feature extractor
         self.vision_tower.requires_grad_(False)
 
         self.is_loaded = True
 
     def feature_select(self, image_forward_outs):
-        image_features = image_forward_outs.hidden_states[self.select_layer]
+        image_features = image_forward_outs.hidden_states[self.select_layer]    #选定层的(batchsize,num_tokens,hidden_size)
         if self.select_feature == 'patch':
-            image_features = image_features[:, 1:]
-        elif self.select_feature == 'cls_patch':
+            image_features = image_features[:, 1:]      #去掉cls token
+        elif self.select_feature == 'cls_patch':    #保留
             image_features = image_features
         else:
             raise ValueError(f'Unexpected select feature: {self.select_feature}')
@@ -47,6 +47,7 @@ class CLIPVisionTower(nn.Module):
     def forward(self, images):
         if type(images) is list:
             image_features = []
+            # batched_images = torch.cat([img.unsqueeze(0) for img in image_list], dim=0)
             for image in images:
                 image_forward_out = self.vision_tower(image.to(device=self.device, dtype=self.dtype).unsqueeze(0), output_hidden_states=True)
                 image_feature = self.feature_select(image_forward_out).to(image.dtype)

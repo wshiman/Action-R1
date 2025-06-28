@@ -22,6 +22,7 @@ def model_init(model_path=None, **kwargs):
         tokenizer.pad_token = tokenizer.unk_token
 
     num_frames = model.config.num_frames if hasattr(model.config, "num_frames") else NUM_FRAMES
+    
     if "qwen2vit" in model_path:
         from .mm_utils import process_image_qwen, process_video_qwen
         processor = {
