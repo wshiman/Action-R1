@@ -1,8 +1,0 @@
-{"time":"2025-04-09T21:43:44.801422203+08:00","level":"INFO","msg":"stream: starting","core version":"0.19.9","symlink path":"/data/data2/shiman/R1-Omni/src/r1-v/wandb/offline-run-20250409_214344-r73ssrpb/logs/debug-core.log"}
-{"time":"2025-04-09T21:43:45.014140341+08:00","level":"WARN","msg":"GraphQL client is nil, skipping feature loading"}
-{"time":"2025-04-09T21:43:45.014397177+08:00","level":"INFO","msg":"created new stream","id":"r73ssrpb"}
-{"time":"2025-04-09T21:43:45.01449531+08:00","level":"INFO","msg":"stream: started","id":"r73ssrpb"}
-{"time":"2025-04-09T21:43:45.014549637+08:00","level":"INFO","msg":"handler: started","stream_id":"r73ssrpb"}
-{"time":"2025-04-09T21:43:45.014528373+08:00","level":"INFO","msg":"sender: started","stream_id":"r73ssrpb"}
-{"time":"2025-04-09T21:43:45.014529477+08:00","level":"INFO","msg":"writer: Do: started","stream_id":"r73ssrpb"}
-{"time":"2025-04-09T21:43:45.020157485+08:00","level":"INFO","msg":"Starting system monitor"}
