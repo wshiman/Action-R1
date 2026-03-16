@@ -20,7 +20,7 @@ Unconstrained fall detection is crucial for real-world applications but remains 
 
 
 ## 🔮 Dataset Download
-The dataset is provided for research purposes to a researcher only. Please do not release the data or redistribute this link to anyone else without our permission. Contact Yang_Xiao@hust.edu.cn if any question or any commercial use.
+[HUST-FALL](https://ieee-dataport.org/documents/hust-fall) is provided for research purposes to a researcher only. Contact shiman_wu@hust.edu.cn if any question or any commercial use.
 
 ## 🌸 Ackownledgements
 - Our implementation is built upon the foundation of [R1-Omni](https://github.com/HumanMLLM/R1-Omni).
